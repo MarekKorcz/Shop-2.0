@@ -24,7 +24,7 @@ class ProductController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('ShopBundle:Product')->findAll();
+        $products = $em->getRepository('AppBundle:Product')->findAll();
         return $this->render('product/index.html.twig', array(
             'products' => $products,
         ));
@@ -38,7 +38,7 @@ class ProductController extends Controller
     public function newAction(Request $request)
     {
         $product = new Product();
-        $form = $this->createForm('ShopBundle\Form\ProductType', $product);
+        $form = $this->createForm('AppBundle\Form\ProductType', $product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -74,7 +74,7 @@ class ProductController extends Controller
     public function editAction(Request $request, Product $product)
     {
         $deleteForm = $this->createDeleteForm($product);
-        $editForm = $this->createForm('ShopBundle\Form\ProductType', $product);
+        $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();

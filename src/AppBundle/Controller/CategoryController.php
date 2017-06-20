@@ -24,7 +24,7 @@ class CategoryController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('ShopBundle:Category')->findAll();
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
         return $this->render('category/index.html.twig', array(
             'categories' => $categories,
         ));
@@ -38,7 +38,7 @@ class CategoryController extends Controller
     public function newAction(Request $request)
     {
         $category = new Category();
-        $form = $this->createForm('ShopBundle\Form\CategoryType', $category);
+        $form = $this->createForm('AppBundle\Form\CategoryType', $category);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -74,7 +74,7 @@ class CategoryController extends Controller
     public function editAction(Request $request, Category $category)
     {
         $deleteForm = $this->createDeleteForm($category);
-        $editForm = $this->createForm('ShopBundle\Form\CategoryType', $category);
+        $editForm = $this->createForm('AppBundle\Form\CategoryType', $category);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
