@@ -118,8 +118,7 @@ class User
     {
         return $this->name;
     }
-
-    /**
+   /**
      * Set surname
      *
      * @param string $surname
