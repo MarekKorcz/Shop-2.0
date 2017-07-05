@@ -263,20 +263,6 @@ class User
     }
 
     /**
-     * Set creationDate
-     *
-     * @param \DateTime $creationDate
-     *
-     * @return User
-     */
-    public function setCreationDate($creationDate)
-    {
-        $this->creationDate = $creationDate;
-
-        return $this;
-    }
-
-    /**
      * Get creationDate
      *
      * @return \DateTime
@@ -309,5 +295,9 @@ class User
     {
         return $this->lastLog;
     }
+    
+    public function __construct() {
+        
+        $this->creationDate = new \DateTime();
+    }
 }
-
