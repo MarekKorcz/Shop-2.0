@@ -34,6 +34,13 @@ class User
      * @ORM\Column(name="surname", type="string", length=25)
      */
     private $surname;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fullName", type="string", length=35)
+     */
+    private $fullName;
 
     /**
      * @var string
@@ -118,6 +125,7 @@ class User
     {
         return $this->name;
     }
+    
    /**
      * Set surname
      *
@@ -140,6 +148,30 @@ class User
     public function getSurname()
     {
         return $this->surname;
+    }
+    
+    /**
+     * Set fullName
+     *
+     * @param string $fullName
+     *
+     * @return User
+     */
+    public function setFullName($name, $surname)
+    {
+        $this->fullName = $name . $surname;
+
+        return $this;
+    }
+
+    /**
+     * Get fullName
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
     }
 
     /**
@@ -299,5 +331,6 @@ class User
     public function __construct() {
         
         $this->creationDate = new \DateTime();
+        $this->setFullName($this->name, $this->surname);
     }
 }
