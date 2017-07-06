@@ -45,11 +45,17 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            
+            // I am doing this here because of my lack of knowledge about 
+            // filling fullName column with its own name and surname while 
+            // creating given object. Fullname is needed for routes.
+            $user->setFullName($user->getName(), $user->getSurname());
+            
+            $em = $this->getDoctrine()->getManager();            
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_show', array('fullName' => $user->getFullName()));
         }
 
         return $this->render('user/new.html.twig', array(
@@ -61,7 +67,7 @@ class UserController extends Controller
     /**
      * Finds and displays a user entity.
      *
-     * @Route("/{id}", name="user_show")
+     * @Route("/{fullName}", name="user_show")
      * @Method("GET")
      */
     public function showAction(User $user)
@@ -77,7 +83,7 @@ class UserController extends Controller
     /**
      * Displays a form to edit an existing user entity.
      *
-     * @Route("/{id}/edit", name="user_edit")
+     * @Route("/{fullName}/edit", name="user_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, User $user)
@@ -89,7 +95,7 @@ class UserController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_edit', array('fullName' => $user->getFullName()));
         }
 
         return $this->render('user/edit.html.twig', array(
@@ -102,7 +108,7 @@ class UserController extends Controller
     /**
      * Deletes a user entity.
      *
-     * @Route("/{id}", name="user_delete")
+     * @Route("/{fullName}", name="user_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, User $user)
@@ -129,7 +135,7 @@ class UserController extends Controller
     private function createDeleteForm(User $user)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
+            ->setAction($this->generateUrl('user_delete', array('fullName' => $user->getFullName())))
             ->setMethod('DELETE')
             ->getForm()
         ;
