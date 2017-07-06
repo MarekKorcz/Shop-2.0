@@ -38,7 +38,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="fullName", type="string", length=35)
+     * @ORM\Column(name="fullName", type="string", length=35, nullable=true)
      */
     private $fullName;
 
@@ -158,10 +158,8 @@ class User
      * @return User
      */
     public function setFullName($name, $surname)
-    {
-        $this->fullName = $name . $surname;
-
-        return $this;
+    {        
+        return $this->fullName = $name.$surname;
     }
 
     /**
@@ -331,6 +329,5 @@ class User
     public function __construct() {
         
         $this->creationDate = new \DateTime();
-        $this->setFullName($this->name, $this->surname);
     }
 }
