@@ -17,6 +17,8 @@ class UserController extends Controller
 {
     /**
      * Lists all user entities.
+     * 
+     * ADMIN
      *
      * @Route("/", name="user_index")
      * @Method("GET")
@@ -34,11 +36,11 @@ class UserController extends Controller
 
     /**
      * Creates a new user entity.
-     *
-     * @Route("/new", name="user_new")
+     * 
+     * @Route("/register", name="user_register")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function registerAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm('AppBundle\Form\UserType', $user);
@@ -58,7 +60,7 @@ class UserController extends Controller
             return $this->redirectToRoute('user_show', array('fullName' => $user->getFullName()));
         }
 
-        return $this->render('user/new.html.twig', array(
+        return $this->render('user/register.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
         ));
