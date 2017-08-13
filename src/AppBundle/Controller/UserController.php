@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * User controller.
- *
- * @Route("user")
  */
 class UserController extends Controller
 {
@@ -20,22 +18,22 @@ class UserController extends Controller
      * 
      * ADMIN
      *
-     * @Route("/", name="user_index")
+     * @Route("/customers", name="user_customers")
      * @Method("GET")
      */
-    public function indexAction()
+    public function customersAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $users = $em->getRepository('AppBundle:User')->findAll();
 
-        return $this->render('user/index.html.twig', array(
+        return $this->render('user/customers.html.twig', array(
             'users' => $users,
         ));
     }
 
     /**
-     * Creates a new user entity.
+     * Register a new user entity.
      * 
      * @Route("/register", name="user_register")
      * @Method({"GET", "POST"})
@@ -124,7 +122,7 @@ class UserController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('user_index');
+        return $this->redirectToRoute('user_customers');
     }
 
     /**
