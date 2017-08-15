@@ -55,6 +55,12 @@ class Product
      * @ORM\Column(name="nameUrl", type="string", length=30)
      */
     private $nameUrl;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
 
 
     /**
@@ -185,6 +191,23 @@ class Product
     public function getNameUrl()
     {
         return $this->nameUrl;
+    }
+    
+    public function setCategory($category) {
+        
+        $this->category = $category;
+        
+        return $this;
+    }
+    
+    public function getCategory(){
+        
+        return $this->category;
+    }
+    
+    public function __toString(){
+        
+        return $this->getName();
     }
 }
 

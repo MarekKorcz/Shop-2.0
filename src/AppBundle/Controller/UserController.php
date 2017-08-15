@@ -66,6 +66,8 @@ class UserController extends Controller
 
     /**
      * Finds and displays a user entity.
+     * 
+     * LOGGED USER
      *
      * @Route("/{fullName}", name="user_show")
      * @Method("GET")
@@ -82,6 +84,8 @@ class UserController extends Controller
 
     /**
      * Displays a form to edit an existing user entity.
+     * 
+     * LOGGED USER
      *
      * @Route("/{fullName}/edit", name="user_edit")
      * @Method({"GET", "POST"})
@@ -107,6 +111,8 @@ class UserController extends Controller
 
     /**
      * Deletes a user entity.
+     * 
+     * ADMIN
      *
      * @Route("/{fullName}", name="user_delete")
      * @Method("DELETE")
