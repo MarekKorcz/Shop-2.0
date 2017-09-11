@@ -78,9 +78,9 @@ class Category
         return $this->getName();
     }
     
-    public function __construct(){
-        
-        $this->products = new ArrayCollection();
-    }
+//    public function __construct(){
+//        
+//        $this->products = new ArrayCollection();
+//    }
 }
 
