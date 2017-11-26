@@ -43,6 +43,13 @@ class Product
     private $price;
     
     /**
+     * @var int
+     * 
+     * @ORM\Column(name="productQuantity", type="integer")
+     */
+    private $productQuantity;
+    
+    /**
      * @var string
      * 
      * @ORM\Column(name="nameUrl", type="string", length=30)
@@ -136,6 +143,30 @@ class Product
     public function getPrice()
     {
         return $this->price;
+    }
+    
+    /**
+     * Set productQuantity
+     *
+     * @param integer $productQuantity
+     *
+     * @return Product
+     */
+    public function setProductQuantity($productQuantity)
+    {
+        $this->productQuantity = $productQuantity;
+
+        return $this;
+    }
+
+    /**
+     * Get productQuantity
+     *
+     * @return integer
+     */
+    public function getProductQuantity()
+    {
+        return $this->productQuantity;
     }
     
     /**
