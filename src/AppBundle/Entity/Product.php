@@ -41,13 +41,6 @@ class Product
      * @ORM\Column(name="price", type="float")
      */
     private $price;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pictureUrl", type="string", length=255)
-     */
-    private $pictureUrl;
     
     /**
      * @var string
@@ -144,30 +137,6 @@ class Product
     {
         return $this->price;
     }
-
-    /**
-     * Set pictureUrl
-     *
-     * @param string $pictureUrl
-     *
-     * @return Product
-     */
-    public function setPictureUrl($pictureUrl)
-    {
-        $this->pictureUrl = $pictureUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get pictureUrl
-     *
-     * @return string
-     */
-    public function getPictureUrl()
-    {
-        return $this->pictureUrl;
-    }
     
     /**
      * Set nameUrl
@@ -191,7 +160,7 @@ class Product
     public function getNameUrl()
     {
         return $this->nameUrl;
-    }
+    }    
     
     public function setCategory($category) {
         
