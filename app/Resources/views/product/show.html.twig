@@ -33,6 +33,14 @@
                 <th>Category</th>
                 <td>{{ product.category }}</td>
             </tr>
+            <tr>
+                <th>Images</th>
+                <td>
+                    {% for image in product.images %}
+                        {{ image }}
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 

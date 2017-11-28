@@ -61,6 +61,11 @@ class Product
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      */
     private $category;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Product_Image", mappedBy="product", cascade={"All"})
+     */
+    private $images;
 
 
     /**
@@ -203,6 +208,11 @@ class Product
     public function getCategory(){
         
         return $this->category;
+    }
+    
+    public function getImages(){
+        
+        return $this->images;
     }
     
     public function __toString(){

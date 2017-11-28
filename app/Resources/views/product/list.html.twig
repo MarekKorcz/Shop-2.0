@@ -13,6 +13,7 @@
                 <th>ProductQuantity</th>
                 <th>Nameurl</th>
                 <th>Category</th>
+                <th>Images</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -26,6 +27,11 @@
                 <td>{{ product.productQuantity }}</td>
                 <td>{{ product.nameUrl }}</td>
                 <td>{{ product.category }}</td>
+                <td>
+                    {% for image in product.images %}
+                        {{ image }}
+                    {% endfor %}
+                </td>
                 <td>
                     <ul>
                         <li>
