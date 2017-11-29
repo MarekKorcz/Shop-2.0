@@ -40,6 +40,11 @@ class Cart
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $owner;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Product_Order", mappedBy="ownerOrder", cascade={"All"})
+     */
+    private $products;
 
 
     /**
@@ -103,6 +108,11 @@ class Cart
     public function getOwner(){
         
         return $this->owner;
+    }
+    
+    public function getProducts(){
+        
+        return $this->products;
     }
 }
 
