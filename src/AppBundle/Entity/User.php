@@ -90,6 +90,11 @@ class User
      * @ORM\Column(name="lastLog", type="datetime")
      */
     private $lastLog;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Cart", mappedBy="owner")
+     */
+    private $cart;
 
 
     /**
@@ -324,6 +329,19 @@ class User
     public function getLastLog()
     {
         return $this->lastLog;
+    }
+    
+    public function setCart($cart)
+    {        
+        $this->cart = $cart;
+        
+        return $this;
+    }
+
+
+    public function getCart()
+    {        
+        return $this->cart;
     }
     
     public function __construct() {
