@@ -43,6 +43,13 @@ class Finalized_Orders
     private $shippingOption;
     
     /**
+     * @var int
+     *
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="finalizedOrders")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -129,6 +136,30 @@ class Finalized_Orders
     public function getShippingOption()
     {
         return $this->shippingOption;
+    }
+    
+    /**
+     * Set status
+     *
+     * @param int $status
+     *
+     * @return Finalized_Order
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
     
     public function setOwner($owner) {
