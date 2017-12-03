@@ -28,4 +28,17 @@ class CartController extends Controller
         
         return $this->render('cart/cart.html.twig');
     }
+    
+    /**
+     * Cart confirm
+     *
+     * @Route("/confirm", name="cart_confirm")
+     * @Method("GET")
+     */
+    public function cartConfirmAction()
+    {
+        // cart summary
+        
+        return $this->render('cart/cart-confirm.html.twig');
+    }
 }
