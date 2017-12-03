@@ -95,7 +95,11 @@ class User
      * @ORM\OneToOne(targetEntity="Cart", mappedBy="owner")
      */
     private $cart;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Finalized_Orders", mappedBy="owner", cascade={"All"})
+     */
+    private $finalizedOrders;
 
     /**
      * Get id
@@ -338,10 +342,14 @@ class User
         return $this;
     }
 
-
     public function getCart()
     {        
         return $this->cart;
+    }
+    
+    public function getFinalizedOrders(){
+        
+        return $this->finalizedOrders;
     }
     
     public function __construct() {
