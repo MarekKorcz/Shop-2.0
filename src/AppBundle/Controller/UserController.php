@@ -63,6 +63,19 @@ class UserController extends Controller
             'form' => $form->createView(),
         ));
     }
+    
+    /**
+     * Login user.
+     * 
+     * @Route("/login", name="user_login")
+     * @Method({"GET", "POST"})
+     */
+    public function loginAction()
+    {
+        // login logic
+        
+        return $this->render('user/login.html.twig');
+    }
 
     /**
      * Finds and displays a user entity.
