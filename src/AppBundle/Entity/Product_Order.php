@@ -40,13 +40,6 @@ class Product_Order
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Cart", inversedBy="products")
-     * @ORM\JoinColumn(name="cart_id", referencedColumnName="id")
-     */
-    private $ownerOrder;
-
 
     /**
      * Get id
@@ -118,16 +111,16 @@ class Product_Order
         return $this->product;
     }
     
-    public function setOwnerOrder($ownerOrder) {
-        
-        $this->ownerOrder = $ownerOrder;
-        
-        return $this;
-    }
-    
-    public function getOwnerOrder(){
-        
-        return $this->ownerOrder;
-    }
+//    public function setOwnerOrder($ownerOrder) {
+//        
+//        $this->ownerOrder = $ownerOrder;
+//        
+//        return $this;
+//    }
+//    
+//    public function getOwnerOrder(){
+//        
+//        return $this->ownerOrder;
+//    }
 }
 

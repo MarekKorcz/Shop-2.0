@@ -92,11 +92,6 @@ class User
     private $lastLog;
     
     /**
-     * @ORM\OneToOne(targetEntity="Cart", mappedBy="owner")
-     */
-    private $cart;
-    
-    /**
      * @ORM\OneToMany(targetEntity="Finalized_Orders", mappedBy="owner", cascade={"All"})
      */
     private $finalizedOrders;
@@ -334,18 +329,18 @@ class User
     {
         return $this->lastLog;
     }
-    
-    public function setCart($cart)
-    {        
-        $this->cart = $cart;
-        
-        return $this;
-    }
-
-    public function getCart()
-    {        
-        return $this->cart;
-    }
+//    
+//    public function setCart($cart)
+//    {        
+//        $this->cart = $cart;
+//        
+//        return $this;
+//    }
+//
+//    public function getCart()
+//    {        
+//        return $this->cart;
+//    }
     
     public function getFinalizedOrders(){
         
