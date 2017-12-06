@@ -63,7 +63,7 @@ class Product
     private $category;
     
     /**
-     * @ORM\OneToMany(targetEntity="Product_Image", mappedBy="product", cascade={"All"})
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="product", cascade={"All"})
      */
     private $images;
     

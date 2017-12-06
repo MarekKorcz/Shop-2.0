@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Product_Image
+ * Image
  *
- * @ORM\Table(name="product_image")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Product_ImageRepository")
+ * @ORM\Table(name="image")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
  */
-class Product_Image
+class Image
 {
     /**
      * @var int
@@ -24,9 +24,9 @@ class Product_Image
     /**
      * @var string
      *
-     * @ORM\Column(name="pictureUrl", type="string", length=50)
+     * @ORM\Column(name="imageUrl", type="string", length=50)
      */
-    private $pictureUrl;
+    private $imageUrl;
     
     /**
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="images")
@@ -46,27 +46,27 @@ class Product_Image
     }
 
     /**
-     * Set pictureUrl
+     * Set imageUrl
      *
-     * @param string $pictureUrl
+     * @param string $imageUrl
      *
-     * @return Product_Image
+     * @return Image
      */
-    public function setPictureUrl($pictureUrl)
+    public function setImageUrl($imageUrl)
     {
-        $this->pictureUrl = $pictureUrl;
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }
 
     /**
-     * Get pictureUrl
+     * Get imageUrl
      *
      * @return string
      */
-    public function getPictureUrl()
+    public function getImageUrl()
     {
-        return $this->pictureUrl;
+        return $this->imageUrl;
     }
     
     public function setProduct($product) {
