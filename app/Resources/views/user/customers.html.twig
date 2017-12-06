@@ -6,42 +6,21 @@
     <table>
         <thead>
             <tr>
-                <th>FullName</th>
                 <th>Name</th>
                 <th>Surname</th>
-                <th>Street</th>
-                <th>City</th>
-                <th>Postalcode</th>
                 <th>Email</th>
-                <th>Phone</th>
                 <th>Creationdate</th>
                 <th>Lastlog</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td><a href="{{ path('user_show', { 'fullName': user.fullName }) }}">{{ user.fullName }}</a></td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.surname }}</td>
-                <td>{{ user.street }}</td>
-                <td>{{ user.city }}</td>
-                <td>{{ user.postalCode }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.phone }}</td>
                 <td>{% if user.creationDate %}{{ user.creationDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if user.lastLog %}{{ user.lastLog|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('user_show', { 'fullName': user.fullName }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('user_edit', { 'fullName': user.fullName }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
             </tr>
         {% endfor %}
         </tbody>

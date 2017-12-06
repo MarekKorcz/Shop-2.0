@@ -34,34 +34,6 @@ class User
      * @ORM\Column(name="surname", type="string", length=25)
      */
     private $surname;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="fullName", type="string", length=35, nullable=true)
-     */
-    private $fullName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="street", type="string", length=30)
-     */
-    private $street;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=25)
-     */
-    private $city;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="postalCode", type="string", length=8)
-     */
-    private $postalCode;
 
     /**
      * @var string
@@ -69,13 +41,13 @@ class User
      * @ORM\Column(name="email", type="string", length=30)
      */
     private $email;
-
+    
     /**
      * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=13)
+     * 
+     * @ORM\Column(name="password", type="string", length=100)
      */
-    private $phone;
+    private $password;
 
     /**
      * @var \DateTime
@@ -153,100 +125,6 @@ class User
     {
         return $this->surname;
     }
-    
-    /**
-     * Set fullName
-     *
-     * @param string $fullName
-     *
-     * @return User
-     */
-    public function setFullName($name, $surname)
-    {        
-        return $this->fullName = $name.$surname;
-    }
-
-    /**
-     * Get fullName
-     *
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->fullName;
-    }
-
-    /**
-     * Set street
-     *
-     * @param string $street
-     *
-     * @return User
-     */
-    public function setStreet($street)
-    {
-        $this->street = $street;
-
-        return $this;
-    }
-
-    /**
-     * Get street
-     *
-     * @return string
-     */
-    public function getStreet()
-    {
-        return $this->street;
-    }
-
-    /**
-     * Set city
-     *
-     * @param string $city
-     *
-     * @return User
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set postalCode
-     *
-     * @param string $postalCode
-     *
-     * @return User
-     */
-    public function setPostalCode($postalCode)
-    {
-        $this->postalCode = $postalCode;
-
-        return $this;
-    }
-
-    /**
-     * Get postalCode
-     *
-     * @return string
-     */
-    public function getPostalCode()
-    {
-        return $this->postalCode;
-    }
 
     /**
      * Set email
@@ -271,29 +149,29 @@ class User
     {
         return $this->email;
     }
-
+    
     /**
-     * Set phone
+     * Set password
      *
-     * @param string $phone
+     * @param string $password
      *
      * @return User
      */
-    public function setPhone($phone)
+    public function setPassword($password)
     {
-        $this->phone = $phone;
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get phone
+     * Get password
      *
      * @return string
      */
-    public function getPhone()
+    public function getPassword()
     {
-        return $this->phone;
+        return $this->password;
     }
 
     /**
