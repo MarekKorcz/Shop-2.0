@@ -36,6 +36,13 @@ class Orders
     private $creationDate;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="shippingOption", type="string", length=50)
@@ -43,13 +50,11 @@ class Orders
     private $shippingOption;
     
     /**
-     * @var int
-     *
-     * @ORM\Column(name="status", type="integer")
+     * @var string
+     * 
+     * @ORM\Column(name="implementationState", type="string", length=30)
      */
-    private $status;
-    
-    //    implementationState
+    private $implementationState;
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
@@ -77,7 +82,7 @@ class Orders
      *
      * @param float $price
      *
-     * @return Finalized_Order
+     * @return Orders
      */
     public function setPrice($price)
     {
@@ -101,7 +106,7 @@ class Orders
      *
      * @param \DateTime $creationDate
      *
-     * @return Finalized_Order
+     * @return Orders
      */
     public function setCreationDate($creationDate)
     {
@@ -119,13 +124,37 @@ class Orders
     {
         return $this->creationDate;
     }
+    
+    /**
+     * Set status
+     *
+     * @param int $status
+     *
+     * @return Orders
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
     /**
      * Set shippingOption
      *
      * @param string $shippingOption
      *
-     * @return Finalized_Order
+     * @return Orders
      */
     public function setShippingOption($shippingOption)
     {
@@ -145,27 +174,27 @@ class Orders
     }
     
     /**
-     * Set status
+     * Set implementationState
      *
-     * @param int $status
+     * @param string $implementationState
      *
-     * @return Finalized_Order
+     * @return Orders
      */
-    public function setStatus($status)
+    public function setImplementationState($implementationState)
     {
-        $this->status = $status;
+        $this->implementationState = $implementationState;
 
         return $this;
     }
 
     /**
-     * Get status
+     * Get implementationState
      *
-     * @return int
+     * @return string
      */
-    public function getStatus()
+    public function getImplementationState()
     {
-        return $this->status;
+        return $this->implementationState;
     }
     
     public function setOwner($owner) {
