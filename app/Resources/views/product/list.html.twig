@@ -8,10 +8,10 @@
             <tr>
                 <th>LINK</th>
                 <th>Name</th>
+                <th>Nameurl</th>
                 <th>Description</th>
                 <th>Price</th>
                 <th>ProductQuantity</th>
-                <th>Nameurl</th>
                 <th>Category</th>
                 <th>Images</th>
                 <th>Actions</th>
@@ -22,10 +22,10 @@
             <tr>
                 <td><a href="{{ path('product_show', { 'nameUrl': product.nameUrl }) }}">{{ product.nameUrl }}</a></td>
                 <td>{{ product.name }}</td>
+                <td>{{ product.nameUrl }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.productQuantity }}</td>
-                <td>{{ product.nameUrl }}</td>
                 <td>{{ product.category }}</td>
                 <td>
                     {% for image in product.images %}

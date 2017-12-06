@@ -27,6 +27,13 @@ class Product
      * @ORM\Column(name="name", type="string", length=50)
      */
     private $name;
+    
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="nameUrl", type="string", length=30)
+     */
+    private $nameUrl;
 
     /**
      * @var string
@@ -48,13 +55,6 @@ class Product
      * @ORM\Column(name="productQuantity", type="integer")
      */
     private $productQuantity;
-    
-    /**
-     * @var string
-     * 
-     * @ORM\Column(name="nameUrl", type="string", length=30)
-     */
-    private $nameUrl;
     
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
@@ -106,6 +106,30 @@ class Product
     {
         return $this->name;
     }
+    
+    /**
+     * Set nameUrl
+     *
+     * @param string $nameUrl
+     *
+     * @return Product
+     */
+    public function setNameUrl($nameUrl)
+    {
+        $this->nameUrl = $nameUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get nameUrl
+     *
+     * @return string
+     */
+    public function getNameUrl()
+    {
+        return $this->nameUrl;
+    } 
 
     /**
      * Set description
@@ -177,31 +201,7 @@ class Product
     public function getProductQuantity()
     {
         return $this->productQuantity;
-    }
-    
-    /**
-     * Set nameUrl
-     *
-     * @param string $nameUrl
-     *
-     * @return Product
-     */
-    public function setNameUrl($nameUrl)
-    {
-        $this->nameUrl = $nameUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get nameUrl
-     *
-     * @return string
-     */
-    public function getNameUrl()
-    {
-        return $this->nameUrl;
-    }    
+    }   
     
     public function setCategory($category) {
         
