@@ -14,10 +14,14 @@
                 <td>{{ category.name }}</td>
             </tr>
             <tr>
+                <th>NameUrl</th>
+                <td>{{ category.nameUrl }}</td>
+            </tr>
+            <tr>
                 <th>Products</th>
                 <td>
                     {% for product in category.products %}
-                        {{ product.name }}
+                        <ul>{{ product.name }}</ul>
                     {% endfor %}
                 </td>
             </tr>
@@ -29,7 +33,7 @@
             <a href="{{ path('category_list') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('category_edit', { 'name': category.name }) }}">Edit</a>
+            <a href="{{ path('category_edit', { 'nameUrl': category.nameUrl }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

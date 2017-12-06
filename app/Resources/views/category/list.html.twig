@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>NameUrl</th>
                 <th>Products</th>
                 <th>Actions</th>
             </tr>
@@ -14,7 +15,8 @@
         <tbody>
         {% for category in categories %}
             <tr>
-                <td><a href="{{ path('category_show', { 'name': category.name }) }}">{{ category.name }}</a></td>
+                <td><a href="{{ path('category_show', { 'nameUrl': category.nameUrl }) }}">{{ category.name }}</a></td>
+                <td><a href="{{ path('category_show', { 'nameUrl': category.nameUrl }) }}">{{ category.nameUrl }}</a></td>
                 <td>
                     {% for product in category.products %}
                         {{ product.name }}
@@ -23,10 +25,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('category_show', { 'name': category.name }) }}">show</a>
+                            <a href="{{ path('category_show', { 'nameUrl': category.nameUrl }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('category_edit', { 'name': category.name }) }}">edit</a>
+                            <a href="{{ path('category_edit', { 'nameUrl': category.nameUrl }) }}">edit</a>
                         </li>
                     </ul>
                 </td>

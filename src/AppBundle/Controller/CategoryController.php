@@ -63,7 +63,7 @@ class CategoryController extends Controller
     /**
      * Finds and displays a category entity.
      *
-     * @Route("/{name}", name="category_show")
+     * @Route("/{nameUrl}", name="category_show")
      * @Method("GET")
      */
     public function showAction(Category $category)
@@ -81,7 +81,7 @@ class CategoryController extends Controller
      * 
      * ADMIN
      *
-     * @Route("/{name}/edit", name="category_edit")
+     * @Route("/{nameUrl}/edit", name="category_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Category $category)

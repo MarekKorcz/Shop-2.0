@@ -29,6 +29,13 @@ class Category
     private $name;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nameUrl", type="string", length=40)
+     */
+    private $nameUrl;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="category", cascade={"All"})
      */
     private $products;
@@ -66,6 +73,30 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+    
+    /**
+     * Set nameUrl
+     *
+     * @param string $nameUrl
+     *
+     * @return Category
+     */
+    public function setNameUrl($nameUrl)
+    {
+        $this->nameUrl = $nameUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get nameUrl
+     *
+     * @return string
+     */
+    public function getNameUrl()
+    {
+        return $this->nameUrl;
     }
     
     public function getProducts(){
