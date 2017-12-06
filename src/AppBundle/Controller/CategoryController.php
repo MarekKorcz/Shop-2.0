@@ -51,7 +51,7 @@ class CategoryController extends Controller
             $em->persist($category);
             $em->flush();
 
-            return $this->redirectToRoute('category_show', array('name' => $category->getName()));
+            return $this->redirectToRoute('category_show', array('nameUrl' => $category->getNameUrl()));
         }
 
         return $this->render('category/new.html.twig', array(
@@ -93,7 +93,7 @@ class CategoryController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('category_edit', array('name' => $category->getName()));
+            return $this->redirectToRoute('category_edit', array('nameUrl' => $category->getNameUrl()));
         }
 
         return $this->render('category/edit.html.twig', array(
@@ -108,7 +108,7 @@ class CategoryController extends Controller
      * 
      * ADMIN
      *
-     * @Route("/{name}", name="category_delete")
+     * @Route("/{nameUrl}", name="category_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Category $category)
@@ -135,7 +135,7 @@ class CategoryController extends Controller
     private function createDeleteForm(Category $category)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('category_delete', array('name' => $category->getName())))
+            ->setAction($this->generateUrl('category_delete', array('nameUrl' => $category->getNameUrl())))
             ->setMethod('DELETE')
             ->getForm()
         ;
