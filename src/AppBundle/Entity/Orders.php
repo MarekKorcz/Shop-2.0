@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Finalized_Order
+ * Orders
  *
- * @ORM\Table(name="finalized_orders")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Finalized_OrdersRepository")
+ * @ORM\Table(name="orders")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OrdersRepository")
  */
-class Finalized_Orders
+class Orders
 {
     /**
      * @var int
@@ -49,12 +49,18 @@ class Finalized_Orders
      */
     private $status;
     
+    //    implementationState
+    
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="finalizedOrders")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $owner;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Product_Order", mappedBy="productOrder", cascade={"All"})
+     */
+    private $products;
 
     /**
      * Get id
@@ -172,6 +178,11 @@ class Finalized_Orders
     public function getOwner(){
         
         return $this->owner;
+    }
+    
+    public function getProducts(){
+        
+        return $this->products;
     }
 }
 

@@ -92,9 +92,9 @@ class User
     private $lastLog;
     
     /**
-     * @ORM\OneToMany(targetEntity="Finalized_Orders", mappedBy="owner", cascade={"All"})
+     * @ORM\OneToMany(targetEntity="Orders", mappedBy="owner", cascade={"All"})
      */
-    private $finalizedOrders;
+    private $orders;
 
     /**
      * Get id
@@ -329,22 +329,10 @@ class User
     {
         return $this->lastLog;
     }
-//    
-//    public function setCart($cart)
-//    {        
-//        $this->cart = $cart;
-//        
-//        return $this;
-//    }
-//
-//    public function getCart()
-//    {        
-//        return $this->cart;
-//    }
     
-    public function getFinalizedOrders(){
+    public function getOrders(){
         
-        return $this->finalizedOrders;
+        return $this->orders;
     }
     
     public function __construct() {
