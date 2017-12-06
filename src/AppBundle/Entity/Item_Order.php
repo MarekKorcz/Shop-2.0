@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Product_Order
+ * Item_Order
  *
- * @ORM\Table(name="product_order")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Product_OrderRepository")
+ * @ORM\Table(name="item_order")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Item_OrderRepository")
  */
-class Product_Order
+class Item_Order
 {
     /**
      * @var int
@@ -36,7 +36,7 @@ class Product_Order
     private $price;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="productOrders")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="itemOrders")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
@@ -45,7 +45,7 @@ class Product_Order
      * @ORM\ManyToOne(targetEntity="Orders", inversedBy="products")
      * @ORM\JoinColumn(name="orders_id", referencedColumnName="id", nullable=false)
      */
-    private $productOrder;
+    private $order;
 
     /**
      * Get id
@@ -62,7 +62,7 @@ class Product_Order
      *
      * @param integer $quantity
      *
-     * @return Product_Order
+     * @return Item_Order
      */
     public function setQuantity($quantity)
     {
@@ -86,7 +86,7 @@ class Product_Order
      *
      * @param float $price
      *
-     * @return Product_Order
+     * @return Item_Order
      */
     public function setPrice($price)
     {
@@ -117,16 +117,16 @@ class Product_Order
         return $this->product;
     }
     
-    public function setProductOrder($productOrder) {
+    public function setOrder($order) {
         
-        $this->productOrder= $productOrder;
+        $this->order= $order;
         
         return $this;
     }
     
-    public function getProductOrder(){
+    public function getOrder(){
         
-        return $this->productOrder;
+        return $this->order;
     }
 }
 

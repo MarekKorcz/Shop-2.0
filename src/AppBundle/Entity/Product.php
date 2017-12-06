@@ -68,9 +68,9 @@ class Product
     private $images;
     
     /**
-     * @ORM\OneToMany(targetEntity="Product_Order", mappedBy="product", cascade={"All"})
+     * @ORM\OneToMany(targetEntity="Item_Order", mappedBy="product", cascade={"All"})
      */
-    private $productOrders;
+    private $itemOrders;
 
 
     /**
@@ -220,9 +220,9 @@ class Product
         return $this->images;
     }
     
-    public function getProductOrders(){
+    public function getItemOrders(){
         
-        return $this->productOrders;
+        return $this->itemOrders;
     }
     
     public function __toString(){

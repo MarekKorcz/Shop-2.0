@@ -63,7 +63,7 @@ class Orders
     private $owner;
 
     /**
-     * @ORM\OneToMany(targetEntity="Product_Order", mappedBy="productOrder", cascade={"All"})
+     * @ORM\OneToMany(targetEntity="Item_Order", mappedBy="order", cascade={"All"})
      */
     private $products;
 
