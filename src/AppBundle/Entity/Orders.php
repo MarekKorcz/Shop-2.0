@@ -66,6 +66,11 @@ class Orders
      * @ORM\OneToMany(targetEntity="Item_Order", mappedBy="order", cascade={"All"})
      */
     private $products;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Address", mappedBy="order")
+     */
+    private $address;
 
     /**
      * Get id
@@ -212,6 +217,18 @@ class Orders
     public function getProducts(){
         
         return $this->products;
+    }
+    
+    public function setAddress($address) {
+        
+        $this->address = $address;
+        
+        return $this;
+    }
+    
+    public function getAddress(){
+        
+        return $this->address;
     }
 }
 

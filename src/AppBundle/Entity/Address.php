@@ -62,6 +62,12 @@ class Address
      * @ORM\Column(name="postCode", type="string", length=10)
      */
     private $postCode;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Orders", inversedBy="address")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     */
+    private $order;
 
 
     /**
@@ -216,6 +222,11 @@ class Address
     public function getPostCode()
     {
         return $this->postCode;
+    }
+    
+    public function getOrder()
+    {
+        return $this->order;
     }
 }
 
