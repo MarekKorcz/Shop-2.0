@@ -64,9 +64,20 @@ class User
     private $lastLog;
     
     /**
+     * @ORM\Column(name="isActive", type="boolean")
+     */
+    private $isActive;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Orders", mappedBy="owner", cascade={"All"})
      */
     private $orders;
+    
+    public function __construct() {
+        
+        $this->creationDate = new \DateTime();
+        $this->isActive = true;
+    }
 
     /**
      * Get id
@@ -208,13 +219,20 @@ class User
         return $this->lastLog;
     }
     
+    /**
+     * Get isActive
+     * 
+     * @param boolean $isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+    
     public function getOrders(){
         
         return $this->orders;
-    }
-    
-    public function __construct() {
-        
-        $this->creationDate = new \DateTime();
     }
 }
