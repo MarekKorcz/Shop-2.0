@@ -189,7 +189,7 @@ class User implements UserInterface, \Serializable
     // needed for UserInterface
     public function getUsername() 
     {
-        
+        $this->getEmail();
     }
     
     public function getSalt()
