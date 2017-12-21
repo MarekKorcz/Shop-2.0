@@ -29,7 +29,11 @@ security:
                 target: /
             
             provider: db_provider
+            
+    role_hierarchy:
+        ROLE_USER:  [ROLE_USER]
+        ROLE_ADMIN: [ROLE_USER, ROLE_ADMIN]
     
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/customers, roles: ROLE_USER }
+        - { path: ^/customers, roles: ROLE_ADMIN }
