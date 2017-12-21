@@ -19,4 +19,11 @@ class SecurityController extends Controller
             'error' => $authUtils->getLastAuthenticationError()
         ]);
     }
+    
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction()
+    {
+    }
 }
