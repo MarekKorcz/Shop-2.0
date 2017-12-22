@@ -15,25 +15,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends Controller
 {
     /**
-     * Lists all user entities.
-     * 
-     * ADMIN
-     *
-     * @Route("/customers", name="user_customers")
-     * @Method("GET")
-     */
-    public function customersAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $users = $em->getRepository('AppBundle:User')->findAll();
-
-        return $this->render('user/customers.html.twig', array(
-            'users' => $users,
-        ));
-    }
-
-    /**
      * Register a new user entity.
      * 
      * @Route("/register", name="user_register")
