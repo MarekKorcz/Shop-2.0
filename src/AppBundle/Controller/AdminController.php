@@ -9,9 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class AdminController extends Controller
 {
     /**
-     * Lists all user entities.
-     * 
-     * ADMIN
+     * Lists all users.
      *
      * @Route("/customers", name="customers")
      * @Method("GET")

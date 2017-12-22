@@ -4,44 +4,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * User controller.
  */
 class UserController extends Controller
 {
-    /**
-     * Register a new user entity.
-     * 
-     * @Route("/register", name="user_register")
-     * @Method({"GET", "POST"})
-     */
-    public function registerAction(Request $request, UserPasswordEncoderInterface $encoder)
-    {
-        $user = new User();
-        $form = $this->createForm('AppBundle\Form\UserType', $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $plainPassword = $user->getPassword();
-            $encoded = $encoder->encodePassword($user, $plainPassword);
-            $user->setPassword($encoded);
-            
-            $em = $this->getDoctrine()->getManager();            
-            $em->persist($user);
-            $em->flush();
-
-            return $this->render('user/registered.html.twig');
-        }
-
-        return $this->render('user/register.html.twig', array(
-            'user' => $user,
-            'form' => $form->createView(),
-        ));
-    }
 }
