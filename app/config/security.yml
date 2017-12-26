@@ -1,39 +1,47 @@
-security:
-    
-    providers:
-        db_provider:
-            entity: 
-                class: AppBundle:User
-                property: email
-                
+security:          
     encoders:
-        AppBundle\Entity\User:
-            algorithm: bcrypt
-            cost: 12
+        AppBundle\Entity\User:  bcrypt
+#        AppBundle\Entity\Admin: bcrypt
+            
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN]
+        
+    providers:
+        user:
+            entity: { class: AppBundle:User, property: email }
+#        admin:
+#            entity: { class: AppBundle:Admin, property: username }
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        main:            
+            
+        user_secured_area:
+            pattern:   ^/
             anonymous: ~
-
+            provider: user
             form_login:
-                login_path: user_login
-                check_path: user_login
-                
+                login_path: /login
+                check_path: /login
+                default_target_path: /  
             logout:
                 path:   /logout
-                target: /
-            
-            provider: db_provider
-            
-    role_hierarchy:
-        ROLE_USER:  [ROLE_USER]
-        ROLE_ADMIN: [ROLE_USER, ROLE_ADMIN]
+                target: /   
+                
+#        admin_secured_area:
+#            pattern:   ^/admin
+#            anonymous: ~
+#            provider: admin
+#            form_login:
+#                login_path: /admin/login
+#                check_path: /admin/login
+#                default_target_path: /customers
+#            logout:
+#                path:   /logout
+#                target: / 
     
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/customers, roles: ROLE_ADMIN }
+#        - { path: ^/customers, roles: ROLE_ADMIN }
