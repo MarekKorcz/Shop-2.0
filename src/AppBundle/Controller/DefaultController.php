@@ -13,10 +13,15 @@ class DefaultController extends Controller
      */
     public function homepageAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/homepage.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        
+        if (is_object($user)) {
+            return $this->render('default/homepage.html.twig', [
+                'user' => $user->getName()
+            ]);
+        } else {
+            return $this->render('default/homepage.html.twig');
+        }
     }
     
     /**
