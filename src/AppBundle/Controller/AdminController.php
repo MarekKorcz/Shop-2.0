@@ -8,6 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Admin controller.
+ *
+ * @Route("admin")
+ */
 class AdminController extends Controller
 {    
     /**
@@ -80,22 +85,6 @@ class AdminController extends Controller
 
         return $this->redirectToRoute('product_list');
     }
-
-    /**
-     * Creates a form to delete a product entity.
-     *
-     * @param Product $product The product entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Product $product)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('product_delete', array('nameUrl' => $product->getNameUrl())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
     
     /**
      * Lists all users.
@@ -129,5 +118,21 @@ class AdminController extends Controller
         return $this->render('product/list.html.twig', array(
             'products' => $products,
         ));
+    }
+    
+    /**
+     * Creates a form to delete a product entity.
+     *
+     * @param Product $product The product entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Product $product)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('product_delete', array('nameUrl' => $product->getNameUrl())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }
