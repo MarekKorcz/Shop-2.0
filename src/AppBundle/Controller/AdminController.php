@@ -21,7 +21,7 @@ class AdminController extends Controller
      * @Route("/product/new", name="product_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newProductAction(Request $request)
     {
         $product = new Product();
         $form = $this->createForm('AppBundle\Form\ProductType', $product);
@@ -47,9 +47,9 @@ class AdminController extends Controller
      * @Route("/product/{nameUrl}/edit", name="product_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Product $product)
+    public function editProductAction(Request $request, Product $product)
     {
-        $deleteForm = $this->createDeleteForm($product);
+        $deleteForm = $this->createProductDeleteForm($product);
         $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
         $editForm->handleRequest($request);
 
@@ -67,14 +67,31 @@ class AdminController extends Controller
     }
     
     /**
+     * Lists of all product entities.
+     * 
+     * @Route("/product/list", name="product_list")
+     * @Method("GET")
+     */
+    public function listProductsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $products = $em->getRepository('AppBundle:Product')->findAll();
+
+        return $this->render('product/list.html.twig', array(
+            'products' => $products,
+        ));
+    }
+    
+    /**
      * Deletes a product entity.
      *
      * @Route("/product/{nameUrl}", name="product_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Product $product)
+    public function deleteProductAction(Request $request, Product $product)
     {
-        $form = $this->createDeleteForm($product);
+        $form = $this->createProductDeleteForm($product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -85,6 +102,24 @@ class AdminController extends Controller
 
         return $this->redirectToRoute('product_list');
     }
+    
+    /**
+     * Creates a form to delete a product entity.
+     *
+     * @param Product $product The product entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createProductDeleteForm(Product $product)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('product_delete', array('nameUrl' => $product->getNameUrl())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
+    }
+    
+    
     
     /**
      * Lists all users.
@@ -101,38 +136,5 @@ class AdminController extends Controller
         return $this->render('admin/customers.html.twig', array(
             'users' => $users,
         ));
-    }
-    
-    /**
-     * Lists of all product entities.
-     * 
-     * @Route("/product/list", name="product_list")
-     * @Method("GET")
-     */
-    public function listAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $products = $em->getRepository('AppBundle:Product')->findAll();
-
-        return $this->render('product/list.html.twig', array(
-            'products' => $products,
-        ));
-    }
-    
-    /**
-     * Creates a form to delete a product entity.
-     *
-     * @param Product $product The product entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Product $product)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('product_delete', array('nameUrl' => $product->getNameUrl())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 }
