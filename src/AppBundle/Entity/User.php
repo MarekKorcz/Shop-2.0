@@ -70,7 +70,7 @@ class User implements UserInterface, \Serializable
     private $isActive;
     
     /**
-     * @ORM\OneToMany(targetEntity="Orders", mappedBy="owner", cascade={"All"})
+     * @ORM\OneToMany(targetEntity="Orders", mappedBy="registeredOwner", cascade={"All"})
      */
     private $orders;
     

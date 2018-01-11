@@ -60,7 +60,7 @@ class Orders
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $owner;
+    private $registeredOwner;
 
     /**
      * @ORM\OneToMany(targetEntity="Item_Order", mappedBy="order", cascade={"All"})
@@ -202,17 +202,29 @@ class Orders
         return $this->implementationState;
     }
     
-    public function setOwner($owner) {
-        
-        $this->owner = $owner;
+    public function setRegisteredOwner($registeredOwner) 
+    {        
+        $this->registeredOwner = $registeredOwner;
         
         return $this;
     }
     
-    public function getOwner(){
-        
-        return $this->owner;
+    public function getRegisteredOwner()
+    {        
+        return $this->registeredOwner;
     }
+    
+//    public function setOwner($owner) 
+//    {        
+//        $this->owner = $owner;
+//        
+//        return $this;
+//    }
+//    
+//    public function getOwner()
+//    {        
+//        return $this->owner;
+//    }
     
     public function getProducts(){
         
