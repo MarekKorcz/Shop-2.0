@@ -61,6 +61,12 @@ class Orders
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $registeredOwner;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="User_Not_Registered", inversedBy="orders")
+     * @ORM\JoinColumn(name="user_not_registered_id", referencedColumnName="id")
+     */
+    private $notRegisteredOwner;
 
     /**
      * @ORM\OneToMany(targetEntity="Item_Order", mappedBy="order", cascade={"All"})
@@ -214,17 +220,17 @@ class Orders
         return $this->registeredOwner;
     }
     
-//    public function setOwner($owner) 
-//    {        
-//        $this->owner = $owner;
-//        
-//        return $this;
-//    }
-//    
-//    public function getOwner()
-//    {        
-//        return $this->owner;
-//    }
+    public function setNotRegisteredOwner($notRegisteredOwner) 
+    {        
+        $this->notRegisteredOwner = $notRegisteredOwner;
+        
+        return $this;
+    }
+    
+    public function getNotRegisteredOwner()
+    {        
+        return $this->notRegisteredOwner;
+    }
     
     public function getProducts(){
         

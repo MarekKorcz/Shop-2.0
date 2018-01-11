@@ -272,8 +272,8 @@ class User implements UserInterface, \Serializable
         return $this->isActive;
     }
     
-    public function getOrders(){
-        
+    public function getOrders()
+    {        
         return $this->orders;
     }
 }
