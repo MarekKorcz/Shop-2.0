@@ -14,6 +14,17 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends Controller
 {
     /**
+     * @Route("/admin/login", name="admin_login")
+     */
+    public function adminLoginAction(AuthenticationUtils $authUtils)
+    {                
+        return $this->render('security/admin_login.html.twig', [
+            'last_username' => $authUtils->getLastUsername(),
+            'error' => $authUtils->getLastAuthenticationError()
+        ]);
+    }
+    
+    /**
      * Register a new user entity.
      * 
      * @Route("/register", name="user_register")
@@ -50,17 +61,6 @@ class SecurityController extends Controller
     public function loginAction(AuthenticationUtils $authUtils)
     {                
         return $this->render('security/login.html.twig', [
-            'last_username' => $authUtils->getLastUsername(),
-            'error' => $authUtils->getLastAuthenticationError()
-        ]);
-    }
-    
-    /**
-     * @Route("/admin/login", name="admin_login")
-     */
-    public function adminLoginAction(AuthenticationUtils $authUtils)
-    {                
-        return $this->render('security/admin_login.html.twig', [
             'last_username' => $authUtils->getLastUsername(),
             'error' => $authUtils->getLastAuthenticationError()
         ]);
