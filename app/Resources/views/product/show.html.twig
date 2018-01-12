@@ -41,6 +41,11 @@
                     {% endfor %}
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="{{ path('cart_add', {'productId': product.id }) }}">Add to Cart</a>
+                </td>
+            </tr>
         </tbody>
     </table>
 {% endblock %}
