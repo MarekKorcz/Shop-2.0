@@ -77,6 +77,11 @@ class Orders
      * @ORM\OneToOne(targetEntity="Address", mappedBy="order")
      */
     private $address;
+    
+    public function __construct() 
+    {     
+        $this->creationDate = new \DateTime();
+    }
 
     /**
      * Get id
@@ -110,20 +115,6 @@ class Orders
     public function getPrice()
     {
         return $this->price;
-    }
-
-    /**
-     * Set creationDate
-     *
-     * @param \DateTime $creationDate
-     *
-     * @return Orders
-     */
-    public function setCreationDate($creationDate)
-    {
-        $this->creationDate = $creationDate;
-
-        return $this;
     }
 
     /**
