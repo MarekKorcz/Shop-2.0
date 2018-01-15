@@ -45,14 +45,14 @@ class Orders
     /**
      * @var string
      *
-     * @ORM\Column(name="shippingOption", type="string", length=50)
+     * @ORM\Column(name="shippingOption", type="string", length=50, nullable=true)
      */
     private $shippingOption;
     
     /**
      * @var string
      * 
-     * @ORM\Column(name="implementationState", type="string", length=30)
+     * @ORM\Column(name="implementationState", type="string", length=30, nullable=true)
      */
     private $implementationState;
     
