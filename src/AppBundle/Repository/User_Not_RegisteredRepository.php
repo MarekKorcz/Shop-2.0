@@ -10,4 +10,15 @@ namespace AppBundle\Repository;
  */
 class User_Not_RegisteredRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findNotRegisteredUserByIpAddress($ip)
+    {        
+        $em = $this->getEntityManager();
+        
+        $query = $em->createQuery("SELECT u FROM AppBundle\Entity\User_Not_Registered u WHERE u.clientIp = :ip");
+        $query->setParameter('ip', $ip);
+        
+        $notRegisteredUser = $query->getResult();
+        
+        return $notRegisteredUser;
+    }
 }

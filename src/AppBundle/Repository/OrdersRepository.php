@@ -14,7 +14,7 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
     {
         $em = $this->getEntityManager();
         
-        $query = $em->createQuery("SELECT o FROM AppBundle\Entity\Orders o WHERE o.registeredOwner = :id and o.status = :status");
+        $query = $em->createQuery("SELECT o FROM AppBundle\Entity\Orders o WHERE o.registeredOwner = :id AND o.status = :status");
         $query->setParameters(array(
             'id'      => $id,
             'status'  => 1
