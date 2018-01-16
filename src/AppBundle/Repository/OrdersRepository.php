@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class OrdersRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findCartOrderByRegisteredUserId($id)
+    {
+        $em = $this->getEntityManager();
+        
+        $query = $em->createQuery("SELECT o FROM AppBundle\Entity\Orders o WHERE o.registeredOwner = :id and o.status = :status");
+        $query->setParameters(array(
+            'id'      => $id,
+            'status'  => 1
+        ));
+        
+        $order = $query->getResult();
+        
+        return $order;
+    }
 }
