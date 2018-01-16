@@ -58,7 +58,7 @@ class Orders
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="registered_user_id", referencedColumnName="id")
      */
     private $registeredOwner;
     
