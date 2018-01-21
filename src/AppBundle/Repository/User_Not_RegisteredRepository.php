@@ -14,10 +14,15 @@ class User_Not_RegisteredRepository extends \Doctrine\ORM\EntityRepository
     {        
         $em = $this->getEntityManager();
         
-        $query = $em->createQuery("SELECT u FROM AppBundle\Entity\User_Not_Registered u WHERE u.clientIp = :ip");
-        $query->setParameter('ip', $ip);
+        $query = $em->createQueryBuilder()
+                    ->select('u')
+                    ->from('AppBundle\Entity\User_Not_Registered', 'u')
+                    ->where('u.clientIp = :ip')
+                    ->setParameter('ip', $ip)
+                ;
         
-        $notRegisteredUser = $query->getResult();
+        $notRegisteredUser = $query->getQuery()
+                                   ->getOneOrNullResult();
         
         return $notRegisteredUser;
     }

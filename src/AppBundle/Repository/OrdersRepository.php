@@ -14,13 +14,42 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
     {
         $em = $this->getEntityManager();
         
-        $query = $em->createQuery("SELECT o FROM AppBundle\Entity\Orders o WHERE o.registeredOwner = :id AND o.status = :status");
-        $query->setParameters(array(
-            'id'      => $id,
-            'status'  => 1
-        ));
+        $query = $em->createQueryBuilder()
+                    ->select('o')
+                    ->from('AppBundle\Entity\Orders', 'o')
+                    ->where('o.registeredOwner = :id')
+                    ->andWhere('o.status = :status')
+                    ->setParameters(array(
+                        'id'      => $id,
+                        'status'  => 1
+                    ))
+                ;
         
-        $order = $query->getResult();
+        $order = $query->getQuery()
+                       ->getOneOrNullResult()
+                ;
+        
+        return $order;
+    }
+    
+    public function findCartOrderByNotRegisteredUserId($id)
+    {
+        $em = $this->getEntityManager();
+        
+        $query = $em->createQueryBuilder()
+                    ->select('o')
+                    ->from('AppBundle\Entity\Orders', 'o')
+                    ->where('o.notRegisteredOwner = :id')
+                    ->andWhere('o.status = :status')
+                    ->setParameters(array(
+                        'id'      => $id,
+                        'status'  => 1
+                    ))
+                ;
+        
+        $order = $query->getQuery()
+                       ->getOneOrNullResult()
+                ;
         
         return $order;
     }
