@@ -118,7 +118,7 @@ class Category
     }
     
     /**
-     * Get product
+     * Get products
      * 
      * @return \AppBundle\Entity\Product
      */

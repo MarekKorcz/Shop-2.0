@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -85,11 +84,11 @@ class Item_Order
     /**
      * Set price
      *
-     * @param Product $product
+     * @param \AppBundle\Entity\Product $product
      *
      * @return Item_Order
      */
-    public function setPrice(Product $product)
+    public function setPrice(\AppBundle\Entity\Product $product)
     {
         $this->price = $product->getPrice() * $this->getQuantity();
 
@@ -118,13 +117,24 @@ class Item_Order
         return $this->product;
     }
     
-    public function setOrder($order) {
-        
-        $this->order= $order;
+    /**
+     * Set order to itemOrder
+     * 
+     * @param \AppBundle\Entity\Orders $order
+     * @return \AppBundle\Entity\Item_Order
+     */
+    public function setOrder(\AppBundle\Entity\Orders $order = null) 
+    {        
+        $this->order = $order;
         
         return $this;
     }
     
+    /**
+     * Get order
+     * 
+     * @return \AppBundle\Entity\Orders
+     */
     public function getOrder(){
         
         return $this->order;

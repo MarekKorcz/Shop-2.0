@@ -81,6 +81,7 @@ class Orders
     public function __construct() 
     {     
         $this->creationDate = new \DateTime();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -223,6 +224,25 @@ class Orders
         return $this->notRegisteredOwner;
     }
     
+    /**
+     * Set product item to order
+     * 
+     * @param \AppBundle\Entity\Item_Order $itemOrder
+     * @return \AppBundle\Entity\Orders
+     */
+    public function setProduct(\AppBundle\Entity\Item_Order $itemOrder)
+    {
+        $itemOrder->setOrder($this);
+        $this->products[] = $itemOrder;
+        
+        return $this;
+    }
+
+    /**
+     * Get item products
+     * 
+     * @return \AppBundle\Entity\Item_Order
+     */
     public function getProducts(){
         
         return $this->products;
