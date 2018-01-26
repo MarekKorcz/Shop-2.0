@@ -39,7 +39,11 @@ class Category
      * @ORM\OneToMany(targetEntity="Product", mappedBy="category", cascade={"All"})
      */
     private $products;
-
+    
+    public function __construct() 
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -99,8 +103,27 @@ class Category
         return $this->nameUrl;
     }
     
-    public function getProducts(){
+    /**
+     * Add product to category collection
+     * 
+     * @param \AppBundle\Entity\Product $product
+     * @return \AppBundle\Entity\Category
+     */
+    public function setProduct(\AppBundle\Entity\Product $product)
+    {
+        $product->setCategory($this);
+        $this->products[] = $product;
         
+        return $this;
+    }
+    
+    /**
+     * Get product
+     * 
+     * @return \AppBundle\Entity\Product
+     */
+    public function getProducts()
+    {        
         return $this->products;
     }
     
@@ -108,10 +131,5 @@ class Category
 
         return $this->getName();
     }
-    
-//    public function __construct(){
-//        
-//        $this->products = new ArrayCollection();
-//    }
 }
 

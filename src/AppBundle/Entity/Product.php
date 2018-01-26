@@ -203,15 +203,26 @@ class Product
         return $this->productQuantity;
     }   
     
-    public function setCategory($category) {
-        
+    /**
+     * Set category to product
+     * 
+     * @param \AppBundle\Entity\Category $category
+     * @return \AppBundle\Entity\Product
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null) 
+    {        
         $this->category = $category;
         
         return $this;
     }
     
-    public function getCategory(){
-        
+    /**
+     * Get category
+     * 
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
         return $this->category;
     }
     
