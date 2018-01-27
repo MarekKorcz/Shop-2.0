@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
 use AppBundle\Entity\User_Not_Registered;
 use AppBundle\Entity\Orders;
 use AppBundle\Entity\Item_Order;
@@ -54,10 +53,12 @@ class CartController extends Controller
      */
     public function addProductToCartOrder(Request $request, AuthorizationCheckerInterface $authChecker, $product)
     {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('AppBundle:Product')->find($product);
+        
         if (false === $authChecker->isGranted('ROLE_ADMIN')) {
 
-            $em = $this->getDoctrine()->getManager();
-            $user = $em->getRepository('AppBundle:User_Not_Registered')->findNotRegisteredUserByIpAddress($request->getClientIp());
+            $user = $em->getRepository('AppBundle:User_Not_Registered')->findOneBy(array('clientIp' => $request->getClientIp()));
             
             if (null === $user) {
                 
@@ -66,30 +67,16 @@ class CartController extends Controller
                 
                 $em->persist($user);
                 $em->flush();
-
-                $order = $this->prepareOrder($user);
-                
-                var_dump('under construction (not_registered)');die;
-                
-    //            $this->addProductToOrder($product, $order);
             }
-                        
-            $order = $this->prepareOrder($user);
-            
-            var_dump('under construction (not_registered)');die;
-            
-//            $this->addProductToOrder($product, $order);
             
         } elseif (true === $authChecker->isGranted('ROLE_ADMIN')) {
             
             $user = $this->get('security.token_storage')->getToken()->getUser()->getId();
-            
-            $order = $this->prepareOrder($user);
-            
-            var_dump('under construction (registered)');die;
-            
-//            $this->addProductToOrder($product, $order);
         }
+        
+        $order = $this->prepareOrder($user);
+        
+//        $this->addProductToOrder($product, $order);
         
         return null;
     }
@@ -100,10 +87,10 @@ class CartController extends Controller
         
         if ($user instanceof User_Not_Registered) { 
             
-            $order = $em->getRepository('AppBundle:Orders')->findCartOrderByNotRegisteredUserId($user->getId());
+            $order = $em->getRepository('AppBundle:Orders')->findOneBy(array('notRegisteredOwner' => $user->getId(), 'status' => 1));
             
             if (is_object($order)){
-                   
+                
                 return $order;
                 
             } else {
@@ -112,12 +99,16 @@ class CartController extends Controller
                 $order->setNotRegisteredOwner($user);
                 $order->setStatus(1);
                 
+                $em->persist($order);
+                $em->flush();
+                
                 return $order;
             }
             
         } else {
-        
-            $order = $em->getRepository('AppBundle:Orders')->findCartOrderByRegisteredUserId($user);
+
+            $user = $em->getRepository('AppBundle:User')->find($user);
+            $order = $em->getRepository('AppBundle:Orders')->findOneBy(array('registeredOwner' => $user->getId(), 'status' => 1));
             
             if (is_object($order)) {
                 
@@ -129,6 +120,9 @@ class CartController extends Controller
                 $order->setRegisteredOwner($user);
                 $order->setStatus(1);
                 
+                $em->persist($order);
+                $em->flush();
+                
                 return $order;
             }
         }
@@ -138,6 +132,6 @@ class CartController extends Controller
     
     private function addProductToOrder($product, $order) 
     {
-        
+
     }
 }
