@@ -10,47 +10,4 @@ namespace AppBundle\Repository;
  */
 class OrdersRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findCartOrderByRegisteredUserId($id)
-    {
-        $em = $this->getEntityManager();
-        
-        $query = $em->createQueryBuilder()
-                    ->select('o')
-                    ->from('AppBundle\Entity\Orders', 'o')
-                    ->where('o.registeredOwner = :id')
-                    ->andWhere('o.status = :status')
-                    ->setParameters(array(
-                        'id'      => $id,
-                        'status'  => 1
-                    ))
-                ;
-        
-        $order = $query->getQuery()
-                       ->getOneOrNullResult()
-                ;
-        
-        return $order;
-    }
-    
-    public function findCartOrderByNotRegisteredUserId($id)
-    {
-        $em = $this->getEntityManager();
-        
-        $query = $em->createQueryBuilder()
-                    ->select('o')
-                    ->from('AppBundle\Entity\Orders', 'o')
-                    ->where('o.notRegisteredOwner = :id')
-                    ->andWhere('o.status = :status')
-                    ->setParameters(array(
-                        'id'      => $id,
-                        'status'  => 1
-                    ))
-                ;
-        
-        $order = $query->getQuery()
-                       ->getOneOrNullResult()
-                ;
-        
-        return $order;
-    }
 }
