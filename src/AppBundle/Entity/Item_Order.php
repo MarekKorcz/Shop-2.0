@@ -105,15 +105,26 @@ class Item_Order
         return $this->price;
     }
     
-    public function setProduct($product) {
-        
+    /**
+     * Set product credentials
+     * 
+     * @param \AppBundle\Entity\Product $product
+     * @return \AppBundle\Entity\Item_Order
+     */
+    public function setProduct(\AppBundle\Entity\Product $product = null) 
+    {        
         $this->product = $product;
         
         return $this;
     }
     
-    public function getProduct(){
-        
+    /**
+     * Get product
+     * 
+     * @return \AppBundle\Entity\Product
+     */
+    public function getProduct()
+    {        
         return $this->product;
     }
     
@@ -135,8 +146,8 @@ class Item_Order
      * 
      * @return \AppBundle\Entity\Orders
      */
-    public function getOrder(){
-        
+    public function getOrder()
+    {        
         return $this->order;
     }
 }

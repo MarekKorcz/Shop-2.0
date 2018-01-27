@@ -71,7 +71,11 @@ class Product
      * @ORM\OneToMany(targetEntity="Item_Order", mappedBy="product", cascade={"All"})
      */
     private $itemOrders;
-
+    
+    public function __construct() 
+    {
+        $this->itemOrders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -231,13 +235,32 @@ class Product
         return $this->images;
     }
     
-    public function getItemOrders(){
+    /**
+     * Add item order into itemOrders collection
+     * 
+     * @param \AppBundle\Entity\Item_Order $itemOrder
+     * @return \AppBundle\Entity\Product
+     */
+    public function setItemOrder(\AppBundle\Entity\Item_Order $itemOrder)
+    {
+        $itemOrder->setProduct($this);
+        $this->itemOrders[] = $itemOrder;
         
+        return $this;
+    }
+
+    /**
+     * Get item orders
+     * 
+     * @return \AppBundle\Entity\Item_Order
+     */
+    public function getItemOrders()
+    {        
         return $this->itemOrders;
     }
     
-    public function __toString(){
-        
+    public function __toString()
+    {        
         return $this->getName();
     }
 }

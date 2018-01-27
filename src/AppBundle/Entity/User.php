@@ -74,8 +74,8 @@ class User implements UserInterface, \Serializable
      */
     private $orders;
     
-    public function __construct() {
-        
+    public function __construct() 
+    {        
         $this->creationDate = new \DateTime();
         $this->isActive = true;
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();

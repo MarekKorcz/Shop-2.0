@@ -265,20 +265,20 @@ class Orders
      * 
      * @return \AppBundle\Entity\Item_Order
      */
-    public function getProducts(){
-        
+    public function getProducts()
+    {        
         return $this->products;
     }
     
-    public function setAddress($address) {
-        
+    public function setAddress($address) 
+    {        
         $this->address = $address;
         
         return $this;
     }
     
-    public function getAddress(){
-        
+    public function getAddress()
+    {        
         return $this->address;
     }
 }
