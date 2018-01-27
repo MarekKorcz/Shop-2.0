@@ -200,13 +200,24 @@ class Orders
         return $this->implementationState;
     }
     
-    public function setRegisteredOwner($registeredOwner) 
+    /**
+     * Set registered user to order
+     * 
+     * @param \AppBundle\Entity\User $registeredOwner
+     * @return \AppBundle\Entity\Orders
+     */
+    public function setRegisteredOwner(\AppBundle\Entity\User $registeredOwner = null) 
     {        
         $this->registeredOwner = $registeredOwner;
         
         return $this;
     }
     
+    /**
+     * Get registered user
+     * 
+     * @return \AppBundle\Entity\User
+     */
     public function getRegisteredOwner()
     {        
         return $this->registeredOwner;

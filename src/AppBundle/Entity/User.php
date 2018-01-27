@@ -78,6 +78,7 @@ class User implements UserInterface, \Serializable
         
         $this->creationDate = new \DateTime();
         $this->isActive = true;
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -272,6 +273,25 @@ class User implements UserInterface, \Serializable
         return $this->isActive;
     }
     
+    /**
+     * Add order to orders collection
+     * 
+     * @param \AppBundle\Entity\Orders $order
+     * @return \AppBundle\Entity\User
+     */
+    public function setOrder(\AppBundle\Entity\Orders $order)
+    {
+        $order->setRegisteredOwner($this);
+        $this->orders[] = $order;
+        
+        return $this;
+    }
+
+    /**
+     * Get orders
+     * 
+     * @return \AppBundle\Entity\Orders
+     */
     public function getOrders()
     {        
         return $this->orders;
