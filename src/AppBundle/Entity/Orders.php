@@ -223,13 +223,24 @@ class Orders
         return $this->registeredOwner;
     }
     
-    public function setNotRegisteredOwner($notRegisteredOwner) 
+    /**
+     * Set not registered user to order
+     * 
+     * @param \AppBundle\Entity\User_Not_Registered $notRegisteredOwner
+     * @return \AppBundle\Entity\Orders
+     */
+    public function setNotRegisteredOwner(\AppBundle\Entity\User_Not_Registered $notRegisteredOwner = null) 
     {        
         $this->notRegisteredOwner = $notRegisteredOwner;
         
         return $this;
     }
     
+    /**
+     * Get not registered user
+     * 
+     * @return \AppBundle\Entity\User_Not_Registered
+     */
     public function getNotRegisteredOwner()
     {        
         return $this->notRegisteredOwner;

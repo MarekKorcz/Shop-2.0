@@ -40,6 +40,10 @@ class User_Not_Registered
      */
     private $orders;
 
+    public function __construct() 
+    {
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -99,6 +103,25 @@ class User_Not_Registered
         return $this->email;
     }
     
+    /**
+     * Set order to orders collection
+     * 
+     * @param \AppBundle\Entity\Orders $order
+     * @return \AppBundle\Entity\User_Not_Registered
+     */
+    public function setOrder(\AppBundle\Entity\Orders $order)
+    {
+        $order->setNotRegisteredOwner($this);
+        $this->orders[] = $order;
+        
+        return $this;
+    }
+
+    /**
+     * Get orders
+     * 
+     * @return \AppBundle\Entity\Orders
+     */
     public function getOrders()
     {        
         return $this->orders;
