@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User_Not_Registered;
+use AppBundle\Entity\User;
 use AppBundle\Entity\Orders;
 use AppBundle\Entity\Item_Order;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -71,7 +72,8 @@ class CartController extends Controller
             
         } elseif (true === $authChecker->isGranted('ROLE_ADMIN')) {
             
-            $user = $this->get('security.token_storage')->getToken()->getUser()->getId();
+            $userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
+            $user = $em->getRepository('AppBundle:User')->find($userId);
         }
         
         $order = $this->prepareOrder($user);
@@ -89,45 +91,32 @@ class CartController extends Controller
             
             $order = $em->getRepository('AppBundle:Orders')->findOneBy(array('notRegisteredOwner' => $user->getId(), 'status' => 1));
             
-            if (is_object($order)){
+            if (!is_object($order)){
                 
-                return $order;
-                
-            } else {
-                                
                 $order = new Orders();
                 $order->setNotRegisteredOwner($user);
                 $order->setStatus(1);
-                
+
                 $em->persist($order);
-                $em->flush();
-                
-                return $order;
+                $em->flush();               
             }
             
-        } else {
+        } elseif ($user instanceof User) {
 
-            $user = $em->getRepository('AppBundle:User')->find($user);
             $order = $em->getRepository('AppBundle:Orders')->findOneBy(array('registeredOwner' => $user->getId(), 'status' => 1));
             
-            if (is_object($order)) {
-                
-                return $order;
-                
-            } else {
+            if (!is_object($order)) {
                 
                 $order = new Orders();
                 $order->setRegisteredOwner($user);
                 $order->setStatus(1);
                 
                 $em->persist($order);
-                $em->flush();
-                
-                return $order;
+                $em->flush(); 
             }
         }
       
-        return null;
+        return $order;
     }
     
     private function addProductToOrder($product, $order) 
