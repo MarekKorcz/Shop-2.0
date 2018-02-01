@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -275,6 +276,34 @@ class Orders
         $this->address = $address;
         
         return $this;
+    }
+    
+    /**
+     * Display item product in order's product item collection
+     * 
+     * @param \AppBundle\Entity\Product $product
+     * @return type
+     */
+    public function getItemProductFromCollection(Product $product)
+    {
+        $expression = Criteria::expr()
+                ->eq("product", $product)
+        ;
+        
+        $criteria = Criteria::create()
+            ->where($expression)
+        ;
+
+        $productItem = $this->getProducts()->matching($criteria);
+
+        if (is_object($productItem->first()) && $productItem->first() === $productItem->last()) {
+            
+            return $productItem->first();
+            
+        } elseif (false === $productItem->first() && $productItem->last()) {
+            
+            return null;
+        }
     }
     
     public function getAddress()
