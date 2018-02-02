@@ -25,9 +25,9 @@ class Orders
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="float", nullable=true)
+     * @ORM\Column(name="totalPrice", type="float", nullable=true)
      */
-    private $price;
+    private $totalPrice;
 
     /**
      * @var \DateTime
@@ -96,11 +96,11 @@ class Orders
     }
 
     /**
-     * Summarize prices of all items in collection and assign the equator to totaPrice
+     * Summarize prices of all items in collection and assign the equator to totalPrice
      * 
      * @return \AppBundle\Entity\Orders
      */
-    public function setPrice()
+    public function countTotalPrice()
     {
         $sum = 0;
         
@@ -108,19 +108,19 @@ class Orders
             $sum += $item->getPrice();
         }
         
-        $this->price = $sum;
+        $this->totalPrice = $sum;
         
         return $this;
     }
 
     /**
-     * Get price
+     * Get totalPrice
      *
      * @return float
      */
-    public function getPrice()
+    public function getTotalPrice()
     {
-        return $this->price;
+        return $this->totalPrice;
     }
 
     /**
