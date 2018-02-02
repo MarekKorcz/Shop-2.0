@@ -49,14 +49,26 @@ class CartController extends Controller
     /**
      * Add product to cart order
      * 
-     * @Route("/add/{product}", name="cart_add")
+     * @Route("/add/{productId}", name="cart_add")
      * @Method({"GET", "POST"})
      */
-    public function addProductToCartOrder(Request $request, AuthorizationCheckerInterface $authChecker, $product)
+    public function addProductToCartOrder(Request $request, AuthorizationCheckerInterface $authChecker, $productId)
     {
         $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('AppBundle:Product')->find($product);
         
+        $user = $this->prepareUser($request, $authChecker, $em);
+        
+        $order = $this->prepareOrder($user, $em);
+        
+        $itemOrder = $this->addProductToOrder($productId, $order, $em);
+        
+        // Summarize the items in order object and assign total price to it
+        
+        return null;
+    }
+    
+    private function prepareUser($request, $authChecker, $em)
+    {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) {
 
             $user = $em->getRepository('AppBundle:User_Not_Registered')->findOneBy(array('clientIp' => $request->getClientIp()));
@@ -76,15 +88,9 @@ class CartController extends Controller
             $user = $em->getRepository('AppBundle:User')->find($userId);
         }
         
-        $order = $this->prepareOrder($user, $em);
-        
-        $itemOrder = $this->addProductToOrder($product, $order, $em);
-        
-        // Summarize the items in order object and assign total price to it
-        
-        return null;
+        return $user;
     }
-    
+
     private function prepareOrder($user, $em)
     {                        
         if ($user instanceof User_Not_Registered) { 
@@ -119,8 +125,10 @@ class CartController extends Controller
         return $order;
     }
     
-    private function addProductToOrder($product, $order, $em) 
+    private function addProductToOrder($productId, $order, $em) 
     {              
+        $product = $em->getRepository('AppBundle:Product')->find($productId);
+        
         if ($order->getItemProductFromCollection($product)) {
             
             $itemOrder = $order->getItemProductFromCollection($product);
