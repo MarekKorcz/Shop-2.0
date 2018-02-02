@@ -96,16 +96,20 @@ class Orders
     }
 
     /**
-     * Set price
-     *
-     * @param float $price
-     *
-     * @return Orders
+     * Summarize prices of all items in collection and assign the equator to totaPrice
+     * 
+     * @return \AppBundle\Entity\Orders
      */
-    public function setPrice($price)
+    public function setPrice()
     {
-        $this->price = $price;
-
+        $sum = 0;
+        
+        foreach ($this->getProducts() as $item) {
+            $sum += $item->getPrice();
+        }
+        
+        $this->price = $sum;
+        
         return $this;
     }
 
@@ -305,7 +309,7 @@ class Orders
             return null;
         }
     }
-    
+
     public function getAddress()
     {        
         return $this->address;
