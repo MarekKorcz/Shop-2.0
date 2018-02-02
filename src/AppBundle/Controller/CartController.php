@@ -76,17 +76,17 @@ class CartController extends Controller
             $user = $em->getRepository('AppBundle:User')->find($userId);
         }
         
-        $order = $this->prepareOrder($user);
+        $order = $this->prepareOrder($user, $em);
         
-//        $this->addProductToOrder($product, $order);
+        $itemOrder = $this->addProductToOrder($product, $order, $em);
+        
+        // Summarize the items in order object and assign total price to it
         
         return null;
     }
     
-    private function prepareOrder($user)
-    {                
-        $em = $this->getDoctrine()->getManager();
-        
+    private function prepareOrder($user, $em)
+    {                        
         if ($user instanceof User_Not_Registered) { 
             
             $order = $em->getRepository('AppBundle:Orders')->findOneBy(array('notRegisteredOwner' => $user->getId(), 'status' => 1));
@@ -119,8 +119,27 @@ class CartController extends Controller
         return $order;
     }
     
-    private function addProductToOrder($product, $order) 
-    {
+    private function addProductToOrder($product, $order, $em) 
+    {              
+        if ($order->getItemProductFromCollection($product)) {
+            
+            $itemOrder = $order->getItemProductFromCollection($product);
+            
+            $itemOrder->setQuantity($itemOrder->getQuantity() + 1);
+            $itemOrder->setPrice($product);
+            
+        } else {
+            
+            $itemOrder = new Item_Order();
+            $itemOrder->setProduct($product);
+            $itemOrder->setQuantity(1);
+            $itemOrder->setPrice($product);
+            $itemOrder->setOrder($order);
+        }
 
+        $em->persist($itemOrder);
+        $em->flush();
+        
+        return $itemOrder;
     }
 }
