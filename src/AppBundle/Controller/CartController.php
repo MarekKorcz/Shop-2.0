@@ -60,11 +60,16 @@ class CartController extends Controller
         
         $order = $this->prepareOrder($user, $em);
         
-        $itemOrder = $this->addProductToOrder($productId, $order, $em);
+        $this->addProductToOrder($productId, $order, $em);
         
-        // Summarize the items in order object and assign total price to it
+        $order->countTotalPrice();
         
-        return null;
+        $em->persist($order);
+        $em->flush();
+
+        return $this->render('cart/cart.html.twig', [
+            'order' => $order
+        ]);
     }
     
     private function prepareUser($request, $authChecker, $em)
@@ -125,7 +130,7 @@ class CartController extends Controller
         return $order;
     }
     
-    private function addProductToOrder($productId, $order, $em) 
+    private function addProductToOrder($productId, $order, $em)
     {              
         $product = $em->getRepository('AppBundle:Product')->find($productId);
         
@@ -148,6 +153,6 @@ class CartController extends Controller
         $em->persist($itemOrder);
         $em->flush();
         
-        return $itemOrder;
+        return true;
     }
 }
