@@ -67,7 +67,7 @@ class CartController extends Controller
         $em->persist($order);
         $em->flush();
 
-        return $this->render('cart/cart.html.twig', [
+        return $this->redirectToRoute('cart_list', [
             'order' => $order
         ]);
     }
