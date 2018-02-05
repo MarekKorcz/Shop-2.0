@@ -72,6 +72,32 @@ class CartController extends Controller
         ]);
     }
     
+    /**
+     * Remove product from cart order
+     * 
+     * @Route("/remove/{productId}", name="cart_remove")
+     * @Method({"GET", "POST"})
+     */
+    public function removeProductFromCartOrder(Request $request, AuthorizationCheckerInterface $authChecker, $productId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $user = $this->loadUser($request, $authChecker, $em);
+        
+        $order = $this->loadOrder($user, $em);
+        
+        $this->removeProductFromOrder($productId, $order, $em);
+        
+        $order->countTotalPrice();
+        
+        $em->persist($order);
+        $em->flush();
+
+        return $this->redirectToRoute('cart_list', [
+            'order' => $order
+        ]);
+    }
+
     private function prepareUser($request, $authChecker, $em)
     {
         if (false === $authChecker->isGranted('ROLE_ADMIN')) {
@@ -151,6 +177,79 @@ class CartController extends Controller
         }
 
         $em->persist($itemOrder);
+        $em->flush();
+        
+        return true;
+    }
+    
+    private function loadUser($request, $authChecker, $em)
+    {
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) {
+
+            $user = $em->getRepository('AppBundle:User_Not_Registered')->findOneBy(array('clientIp' => $request->getClientIp()));
+            
+            if (null === $user) {
+                
+                var_dump('throw exception in a future');die;
+            }
+            
+        } elseif (true === $authChecker->isGranted('ROLE_ADMIN')) {
+            
+            $userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
+            $user = $em->getRepository('AppBundle:User')->find($userId);
+            
+            if (null === $user) {
+                
+                var_dump('throw exception in a future');die;
+            }
+        }
+        
+        return $user;
+    }
+    
+    private function loadOrder($user, $em)
+    {                        
+        if ($user instanceof User_Not_Registered) { 
+            
+            $order = $em->getRepository('AppBundle:Orders')->findOneBy(array('notRegisteredOwner' => $user->getId(), 'status' => 1));
+            
+            if (!is_object($order)){
+                
+                var_dump('throw exception in a future');die;               
+            }
+            
+        } elseif ($user instanceof User) {
+
+            $order = $em->getRepository('AppBundle:Orders')->findOneBy(array('registeredOwner' => $user->getId(), 'status' => 1));
+            
+            if (!is_object($order)) {
+                
+                var_dump('throw exception in a future');die;
+            }
+        }
+      
+        return $order;
+    }
+    
+    private function removeProductFromOrder($productId, $order, $em)
+    {
+        $product = $em->getRepository('AppBundle:Product')->find($productId);
+        
+        if ($order->getItemProductFromCollection($product)) {
+            
+            $itemOrder = $order->getItemProductFromCollection($product);
+            
+            if (!$itemOrder instanceof Item_Order) {
+                
+               var_dump('throw exception in a future (object is not instance of Item_Order)');die;
+            }
+            
+        } else {
+            
+            var_dump('throw exception in a future (there is no Item_Order in DB)');die;
+        }
+
+        $em->remove($itemOrder);
         $em->flush();
         
         return true;
