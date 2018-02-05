@@ -23,7 +23,7 @@ class CartController extends Controller
     /**
      * List of products in cart
      *
-     * @Route("/", name="cart_list")
+     * @Route("/", name="cart")
      * @Method("GET")
      */
     public function cartAction()
@@ -67,7 +67,7 @@ class CartController extends Controller
         $em->persist($order);
         $em->flush();
 
-        return $this->redirectToRoute('cart_list', [
+        return $this->redirectToRoute('cart', [
             'order' => $order
         ]);
     }
@@ -93,7 +93,7 @@ class CartController extends Controller
         $em->persist($order);
         $em->flush();
 
-        return $this->redirectToRoute('cart_list', [
+        return $this->redirectToRoute('cart', [
             'order' => $order
         ]);
     }
