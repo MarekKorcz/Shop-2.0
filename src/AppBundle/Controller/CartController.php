@@ -67,9 +67,7 @@ class CartController extends Controller
         $em->persist($order);
         $em->flush();
 
-        return $this->redirectToRoute('cart', [
-            'order' => $order
-        ]);
+        return $this->redirectToRoute('cart');
     }
     
     /**
@@ -93,9 +91,7 @@ class CartController extends Controller
         $em->persist($order);
         $em->flush();
 
-        return $this->redirectToRoute('cart', [
-            'order' => $order
-        ]);
+        return $this->redirectToRoute('cart');
     }
 
     private function prepareUser($request, $authChecker, $em)
