@@ -26,11 +26,34 @@ class CartController extends Controller
      * @Route("/", name="cart")
      * @Method("GET")
      */
-    public function cartAction()
+    public function cartAction(Request $request, AuthorizationCheckerInterface $authChecker)
     {
-        // cart logic
+        $em = $this->getDoctrine()->getManager();
         
-        return $this->render('cart/cart.html.twig');
+        if (false === $authChecker->isGranted('ROLE_ADMIN')) {
+            
+            $user = $em->getRepository('AppBundle:User_Not_Registered')->findOneBy(array('clientIp' => $request->getClientIp()));
+            
+            if (null === $user) {
+                
+                $order = null;
+                
+            } else {
+                
+                $order = $em->getRepository('AppBundle:Orders')->findOneBy(array('notRegisteredOwner' => $user->getId(), 'status' => 1));
+            }          
+        
+        } elseif (true === $authChecker->isGranted('ROLE_ADMIN')) {
+            
+            $userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
+            $user = $em->getRepository('AppBundle:User')->find($userId);
+            
+            $order = $em->getRepository('AppBundle:Orders')->findOneBy(array('registeredOwner' => $user->getId(), 'status' => 1));
+        }
+        
+        return $this->render('cart/cart.html.twig', [
+            'order' => $order
+        ]);
     }
     
     /**
