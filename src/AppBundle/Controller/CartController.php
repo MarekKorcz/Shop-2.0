@@ -69,11 +69,9 @@ class CartController extends Controller
         
         $order = $this->loadOrder($user, $em);
         
-        if ($order->getNotRegisteredOwner()) {
+        if ($order->getNotRegisteredOwner() && $user->getEmail() === null) {
             
-            // add validation if email is set or not
-            
-            if ($request->get('email') && $user->getEmail() === null) {
+            if ($request->get('email')) {
                 
                     // add email vaidation in entity
                 
