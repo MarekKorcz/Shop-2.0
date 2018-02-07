@@ -64,7 +64,7 @@ class Address
     private $postCode;
     
     /**
-     * @ORM\OneToOne(targetEntity="Orders", inversedBy="address")
+     * @ORM\OneToOne(targetEntity="Orders", mappedBy="address")
      * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      */
     private $order;
@@ -224,6 +224,24 @@ class Address
         return $this->postCode;
     }
     
+    /**
+     * Set order to address
+     * 
+     * @param \AppBundle\Entity\Orders $order
+     * @return \AppBundle\Entity\Address
+     */
+    public function setOrder(\AppBundle\Entity\Orders $order = null) 
+    {        
+        $this->order = $order;
+        
+        return $this;
+    }
+    
+    /**
+     * Get order
+     * 
+     * @return \AppBundle\Entity\Orders
+     */
     public function getOrder()
     {
         return $this->order;

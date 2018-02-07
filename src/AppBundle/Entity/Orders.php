@@ -75,7 +75,7 @@ class Orders
     private $products;
     
     /**
-     * @ORM\OneToOne(targetEntity="Address", mappedBy="order")
+     * @ORM\OneToOne(targetEntity="Address", inversedBy="order", cascade={"persist"})
      */
     private $address;
     
@@ -275,11 +275,28 @@ class Orders
         return $this->products;
     }
     
-    public function setAddress($address) 
+    /**
+     * Set addres to order
+     * 
+     * @param \AppBundle\Entity\Address $address
+     * @return \AppBundle\Entity\Orders
+     */
+    public function setAddress(\AppBundle\Entity\Address $address) 
     {        
+        $address->setOrder($this);
         $this->address = $address;
         
         return $this;
+    }
+    
+    /**
+     * Get address
+     * 
+     * @return \AppBundle\Entity\Address
+     */
+    public function getAddress()
+    {        
+        return $this->address;
     }
     
     /**
@@ -308,11 +325,6 @@ class Orders
             
             return null;
         }
-    }
-
-    public function getAddress()
-    {        
-        return $this->address;
     }
 }
 
