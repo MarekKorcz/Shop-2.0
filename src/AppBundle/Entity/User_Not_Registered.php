@@ -88,6 +88,8 @@ class User_Not_Registered
      */
     public function setEmail($email)
     {
+        // add email vaidation
+        
         $this->email = $email;
 
         return $this;

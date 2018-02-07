@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-
 /**
  * Cart controller.
  *
@@ -60,15 +59,38 @@ class CartController extends Controller
      * Cart confirm
      *
      * @Route("/confirm", name="cart_confirm")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function cartConfirmAction()
+    public function cartConfirmAction(Request $request, AuthorizationCheckerInterface $authChecker)
     {
-        // cart summary
+        $em = $this->getDoctrine()->getManager();
         
-        return $this->render('cart/cart-confirm.html.twig');
+        $user = $this->loadUser($request, $authChecker, $em);
+        
+        $order = $this->loadOrder($user, $em);
+        
+        if ($order->getNotRegisteredOwner()) {
+            
+            // add validation if email is set or not
+            
+            if ($request->get('email') && $user->getEmail() === null) {
+                
+                    // add email vaidation in entity
+                
+                $user->setEmail($request->get('email'));
+                
+                $em->persist($user);
+                $em->flush();
+                
+                return $this->redirectToRoute('order_create'); 
+            }
+            
+            return $this->render('cart/cart-confirm.html.twig');
+        } 
+        
+        return $this->redirectToRoute('order_create');       
     }
-    
+
     /**
      * Add product to cart order
      * 
