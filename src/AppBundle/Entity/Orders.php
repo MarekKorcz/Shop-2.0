@@ -75,7 +75,7 @@ class Orders
     private $products;
     
     /**
-     * @ORM\OneToOne(targetEntity="Address", inversedBy="order", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Address", mappedBy="order", cascade={"persist"})
      */
     private $address;
     

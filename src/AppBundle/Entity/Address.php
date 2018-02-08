@@ -64,7 +64,7 @@ class Address
     private $postCode;
     
     /**
-     * @ORM\OneToOne(targetEntity="Orders", mappedBy="address")
+     * @ORM\OneToOne(targetEntity="Orders", inversedBy="address")
      * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      */
     private $order;
