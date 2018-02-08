@@ -39,6 +39,7 @@ class OrderController extends Controller
             $order = $this->loadOrder($user, $em);
             
             $order->setAddress($address);
+            $order->setStatus(2);
             
             $em->persist($order);
             $em->flush();
@@ -58,7 +59,7 @@ class OrderController extends Controller
      * @Route("/success", name="order_success")
      * @Method({"GET", "POST"})
      */
-    public function successOrderAction()
+    public function successOrderAction(Request $request, AuthorizationCheckerInterface $authChecker)
     {
         var_dump('Congrats! You did it!');die;
     }
