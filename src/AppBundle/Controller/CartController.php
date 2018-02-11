@@ -95,7 +95,7 @@ class CartController extends Controller
      * @Route("/add/{productId}", name="cart_add")
      * @Method({"GET", "POST"})
      */
-    public function addProductToCartOrder(Request $request, AuthorizationCheckerInterface $authChecker, $productId)
+    public function addProductToCartOrderAction(Request $request, AuthorizationCheckerInterface $authChecker, $productId)
     {       
         $em = $this->getDoctrine()->getManager();
         
@@ -121,7 +121,7 @@ class CartController extends Controller
      * @Route("/remove/{productId}", name="cart_remove")
      * @Method({"GET", "POST"})
      */
-    public function removeProductFromCartOrder(Request $request, AuthorizationCheckerInterface $authChecker, $productId)
+    public function removeProductFromCartOrderAction(Request $request, AuthorizationCheckerInterface $authChecker, $productId)
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -147,7 +147,7 @@ class CartController extends Controller
      * @Route("/change/{productId}/{quantity}", name="cart_change")
      * @Method({"GET", "POST"})
      */
-    public function changeItemOrderQuantityInCartOrder(Request $request, AuthorizationCheckerInterface $authChecker, $productId, $quantity)
+    public function changeItemOrderQuantityInCartOrderAction(Request $request, AuthorizationCheckerInterface $authChecker, $productId, $quantity)
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -232,6 +232,11 @@ class CartController extends Controller
         if ($order->getItemProductFromCollection($product)) {
             
             $itemOrder = $order->getItemProductFromCollection($product);
+            
+            if ($itemOrder->getQuantity() + 1 > $product->getProductQuantity()) {
+                
+                var_dump('Redirect to cart and display sufficient statement');die;
+            }
             
             $itemOrder->setQuantity($itemOrder->getQuantity() + 1);
             $itemOrder->setPrice($product);
