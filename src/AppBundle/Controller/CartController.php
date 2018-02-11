@@ -140,6 +140,32 @@ class CartController extends Controller
 
         return $this->redirectToRoute('cart');
     }
+    
+    /**
+     * Change item order quantity in cart order
+     * 
+     * @Route("/change/{productId}/{quantity}", name="cart_change")
+     * @Method({"GET", "POST"})
+     */
+    public function changeItemOrderQuantityInCartOrder(Request $request, AuthorizationCheckerInterface $authChecker, $productId, $quantity)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $user = $this->loadUser($request, $authChecker, $em);
+        
+        $order = $this->loadOrder($user, $em);
+        
+        $this->changeItemOrderQuantity($productId, $quantity, $order, $em);
+        
+        $em->refresh($order);
+        
+        $order->countTotalPrice();
+        
+        $em->persist($order);
+        $em->flush();
+        
+        return $this->redirectToRoute('cart');
+    }
 
     private function prepareUser($request, $authChecker, $em)
     {
@@ -293,6 +319,44 @@ class CartController extends Controller
         }
 
         $em->remove($itemOrder);
+        $em->flush();
+        
+        return true;
+    }
+    
+    private function changeItemOrderQuantity($productId, $quantity, $order, $em)
+    {        
+        if ($quantity === '0') {
+            
+            $this->removeProductFromOrder($productId, $order, $em);
+            return true;
+        }           
+        
+        $product = $em->getRepository('AppBundle:Product')->find($productId);
+        
+        if ($order->getItemProductFromCollection($product)) {
+            
+            $itemOrder = $order->getItemProductFromCollection($product);
+            
+            if (!$itemOrder instanceof Item_Order) {
+                
+               var_dump('throw exception in a future (object is not instance of Item_Order)');die;
+            }  
+            
+        } else {
+            
+            var_dump('throw exception in a future (there is no Item_Order in DB)');die;
+        }
+        
+        if ($quantity > $product->getProductQuantity()) {
+            
+            var_dump('Redirect to cart and display sufficient statement');die;
+        }
+        
+        $itemOrder->setQuantity($quantity);
+        $itemOrder->setPrice($product);
+        
+        $em->persist($itemOrder);
         $em->flush();
         
         return true;
