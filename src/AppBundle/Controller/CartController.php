@@ -105,6 +105,8 @@ class CartController extends Controller
         
         $this->addProductToOrder($productId, $order, $em);
         
+        $em->refresh($order);
+        
         $order->countTotalPrice();
         
         $em->persist($order);
@@ -128,6 +130,8 @@ class CartController extends Controller
         $order = $this->loadOrder($user, $em);
         
         $this->removeProductFromOrder($productId, $order, $em);  
+        
+        $em->refresh($order);
         
         $order->countTotalPrice();
         
