@@ -105,6 +105,7 @@ class Orders
         $sum = 0;
         
         foreach ($this->getProducts() as $item) {
+            
             $sum += $item->getPrice();
         }
         
@@ -268,11 +269,19 @@ class Orders
     /**
      * Get item products
      * 
-     * @return \AppBundle\Entity\Item_Order
+     * @return type
      */
     public function getProducts()
     {        
-        return $this->products;
+        $expression = Criteria::expr()
+                ->eq("order", $this)
+        ;
+        
+        $criteria = Criteria::create()
+            ->where($expression)
+        ;
+        
+        return $this->products->matching($criteria)->getValues();
     }
     
     /**
@@ -315,7 +324,7 @@ class Orders
             ->where($expression)
         ;
 
-        $productItem = $this->getProducts()->matching($criteria);
+        $productItem = $this->products->matching($criteria);
 
         if (is_object($productItem->first()) && $productItem->first() === $productItem->last()) {
             

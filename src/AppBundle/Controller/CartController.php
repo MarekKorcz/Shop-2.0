@@ -96,7 +96,7 @@ class CartController extends Controller
      * @Method({"GET", "POST"})
      */
     public function addProductToCartOrder(Request $request, AuthorizationCheckerInterface $authChecker, $productId)
-    {
+    {       
         $em = $this->getDoctrine()->getManager();
         
         $user = $this->prepareUser($request, $authChecker, $em);
@@ -127,7 +127,7 @@ class CartController extends Controller
         
         $order = $this->loadOrder($user, $em);
         
-        $this->removeProductFromOrder($productId, $order, $em);
+        $this->removeProductFromOrder($productId, $order, $em);  
         
         $order->countTotalPrice();
         
@@ -214,7 +214,7 @@ class CartController extends Controller
             $itemOrder->setPrice($product);
             $itemOrder->setOrder($order);
         }
-
+        
         $em->persist($itemOrder);
         $em->flush();
         
