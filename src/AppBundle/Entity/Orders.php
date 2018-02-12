@@ -45,7 +45,7 @@ class Orders
     
     /**
      * @ORM\ManyToOne(targetEntity="Shipping_Option", inversedBy="orders")
-     * @ORM\JoinColumn(name="shipping_option_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="shipping_option_id", referencedColumnName="id", nullable=true)
      */
     private $shippingOption;
     
