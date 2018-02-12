@@ -44,9 +44,8 @@ class Orders
     private $status;
     
     /**
-     * @var string
-     *
-     * @ORM\Column(name="shippingOption", type="string", length=50, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Shipping_Option", inversedBy="orders")
+     * @ORM\JoinColumn(name="shipping_option_id", referencedColumnName="id", nullable=false)
      */
     private $shippingOption;
     
@@ -159,13 +158,12 @@ class Orders
     }
 
     /**
-     * Set shippingOption
+     * Set shippingOption to order
      *
-     * @param string $shippingOption
-     *
-     * @return Orders
+     * @param \AppBundle\Entity\Shipping_Option $shippingOption
+     * @return \AppBundle\Entity\Orders
      */
-    public function setShippingOption($shippingOption)
+    public function setShippingOption(\AppBundle\Entity\Shipping_Option $shippingOption = null)
     {
         $this->shippingOption = $shippingOption;
 
@@ -174,8 +172,8 @@ class Orders
 
     /**
      * Get shippingOption
-     *
-     * @return string
+     * 
+     * @return type
      */
     public function getShippingOption()
     {
