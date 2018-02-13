@@ -37,13 +37,18 @@ class Shipping_Option
     private $price;
     
     /**
-     * @ORM\OneToMany(targetEntity="Orders", mappedBy="shippingOption", cascade={"persist"}) 
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="shippingOption", cascade={"persist"}) 
      */
-    private $orders;
+    private $addresses;
 
     public function __construct() 
     {
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function __toString(){
+
+        return $this->getName();
     }
 
     /**
@@ -105,25 +110,25 @@ class Shipping_Option
     }
     
     /**
-     * Add order to shippingOption collection
+     * Add address to shippingOption collection
      * 
-     * @param \AppBundle\Entity\Orders $order
+     * @param \AppBundle\Entity\Address $address
      * @return \AppBundle\Entity\Shipping_Option
      */
-    public function setOrder(\AppBundle\Entity\Orders $order)
+    public function setAddress(\AppBundle\Entity\Address $address)
     {
-        $order->setShippingOption($this);
-        $this->orders[] = $order;
+        $address->setShippingOption($this);
+        $this->addresses[] = $address;
         
         return $this;
     }
     
     /**
-     * Get orders
+     * Get addresses
      * 
      * @return type
      */
-    public function getOrder()
+    public function getAddresses()
     {
         $expression = Criteria::expr()
             ->eq('shippingOption', $this)
@@ -133,7 +138,7 @@ class Shipping_Option
             ->where($expression)
         ;
         
-        return $this->orders->matching($criteria)->getValues();
+        return $this->addresses->matching($criteria)->getValues();
     }
 }
 

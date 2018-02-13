@@ -61,7 +61,13 @@ class Address
      *
      * @ORM\Column(name="postCode", type="string", length=10)
      */
-    private $postCode;
+    private $postCode;  
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Shipping_Option", inversedBy="addresses")
+     * @ORM\JoinColumn(name="shipping_option_id", referencedColumnName="id")
+     */
+    private $shippingOption;
     
     /**
      * @ORM\OneToOne(targetEntity="Orders", inversedBy="address")
@@ -222,6 +228,29 @@ class Address
     public function getPostCode()
     {
         return $this->postCode;
+    }
+    
+    /**
+     * Set shippingOption to address
+     *
+     * @param \AppBundle\Entity\Shipping_Option $shippingOption
+     * @return \AppBundle\Entity\Address
+     */
+    public function setShippingOption(\AppBundle\Entity\Shipping_Option $shippingOption = null)
+    {
+        $this->shippingOption = $shippingOption;
+
+        return $this;
+    }
+
+    /**
+     * Get shippingOption
+     * 
+     * @return type
+     */
+    public function getShippingOption()
+    {
+        return $this->shippingOption;
     }
     
     /**
