@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class AddressType extends AbstractType
 {
@@ -20,6 +21,10 @@ class AddressType extends AbstractType
             ->add('houseNumber')
             ->add('city')
             ->add('postCode')
+            ->add('shippingOption', EntityType::class, array(
+                'class'         => \AppBundle\Entity\Shipping_Option::class,
+                'choice_label'  => 'name'
+            ))
         ;
     }
     
