@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductType extends AbstractType
+class Shipping_OptionType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -15,11 +15,7 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('nameUrl')
-            ->add('description')
             ->add('price')
-            ->add('productQuantity')
-            ->add('category')
         ;
     }
     
@@ -29,7 +25,7 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Product'
+            'data_class' => 'AppBundle\Entity\Shipping_Option'
         ));
     }
 
@@ -38,7 +34,7 @@ class ProductType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_product';
+        return 'appbundle_shipping_option';
     }
 
 
