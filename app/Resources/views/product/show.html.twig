@@ -30,20 +30,32 @@
                 <td>{{ product.productQuantity }}</td>
             </tr>
             <tr>
+                <th>Picture</th>
+                <td>
+                    {#{% for image in product.images %}
+                        {{ image }}
+                    {% endfor %}#}
+                    
+                   {# <a href="{{ asset('uploads/pictures/' ~ product.picture) }}">
+                        Show picture
+                    </a>#}
+                   
+                   <img src="{{ asset('uploads/pictures/' ~ product.picture) }}" alt="zdjatko" height="142" width="162"/>
+                </td>
+            </tr>
+            <tr>
                 <th>Category</th>
                 <td>{{ product.category }}</td>
             </tr>
             <tr>
-                <th>Images</th>
-                <td>
-                    {% for image in product.images %}
-                        {{ image }}
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr>
                 <td>
                     <a href="{{ path('cart_add', {'productId': product.id }) }}">Add to Cart</a>
+                </td>
+                <td>
+                    <a href="{{ path('cart_remove', {'productId': product.id }) }}">Remove product from cart order (temporary presence)</a>
+                </td>
+                <td>
+                    <a href="{{ path('cart_change', {'productId': product.id, 'quantity': 5}) }}">Change item order quantity (temporary presence)</a>
                 </td>
             </tr>
         </tbody>

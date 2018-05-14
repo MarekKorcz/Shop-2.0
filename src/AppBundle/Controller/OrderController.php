@@ -72,7 +72,7 @@ class OrderController extends Controller
             
             if (null === $user) {
                 
-                var_dump('throw exception in a future');die;
+                var_dump('throw exception in a future (not logged user)');die;
             }
             
         } elseif (true === $authChecker->isGranted('ROLE_ADMIN')) {
@@ -82,7 +82,7 @@ class OrderController extends Controller
             
             if (null === $user) {
                 
-                var_dump('throw exception in a future');die;
+                var_dump('throw exception in a future (logged user)');die;
             }
         }
         
@@ -97,7 +97,7 @@ class OrderController extends Controller
             
             if (!is_object($order)){
                 
-                var_dump('throw exception in a future');die;               
+                var_dump('throw exception in a future (not logged register order)');die;               
             }
             
         } elseif ($user instanceof User) {
@@ -106,7 +106,7 @@ class OrderController extends Controller
             
             if (!is_object($order)) {
                 
-                var_dump('throw exception in a future');die;
+                var_dump('throw exception in a future (logged register order');die;
             }
         }
       

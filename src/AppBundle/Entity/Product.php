@@ -72,6 +72,11 @@ class Product
      */
     private $itemOrders;
     
+    /**
+     * @ORM\Column(name="picture", type="string", length=100)
+     */
+    private $picture;
+    
     public function __construct() 
     {
         $this->itemOrders = new \Doctrine\Common\Collections\ArrayCollection();
@@ -257,6 +262,18 @@ class Product
     public function getItemOrders()
     {        
         return $this->itemOrders;
+    }
+    
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+    
+    public function getPicture()
+    {
+        return $this->picture;
     }
     
     public function __toString()

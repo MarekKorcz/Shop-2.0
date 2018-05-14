@@ -29,6 +29,18 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $picture = $product->getPicture();
+            
+            $pictureName = $this->generateUniquePictureName().'.'.$picture->guessExtension();
+            
+            $picture->move(
+                $this->getParameter('pictures_directory'),
+                $pictureName
+            );
+            
+            $product->setPicture($pictureName);
+            
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -42,7 +54,15 @@ class AdminController extends Controller
         ));
     }
     
-        /**
+    /**
+     * @return string
+     */
+    private function generateUniquePictureName() {
+        
+        return md5(uniqid());
+    }
+
+    /**
      * Displays a form to edit an existing product entity.
      * 
      * @Route("/product/{nameUrl}/edit", name="product_edit")
