@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Service\FileUploader;
 
 /**
  * Admin controller.
@@ -22,7 +23,7 @@ class AdminController extends Controller
      * @Route("/product/new", name="product_new")
      * @Method({"GET", "POST"})
      */
-    public function newProductAction(Request $request)
+    public function newProductAction(Request $request, FileUploader $fileUploader)
     {
         $product = new Product();
         $form = $this->createForm('AppBundle\Form\ProductType', $product);
@@ -32,12 +33,7 @@ class AdminController extends Controller
             
             $picture = $product->getPicture();
             
-            $pictureName = $this->generateUniquePictureName().'.'.$picture->guessExtension();
-            
-            $picture->move(
-                $this->getParameter('pictures_directory'),
-                $pictureName
-            );
+            $pictureName = $fileUploader->upload($picture);
             
             $product->setPicture($pictureName);
             
