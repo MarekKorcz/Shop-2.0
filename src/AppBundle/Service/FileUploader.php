@@ -15,7 +15,7 @@ class FileUploader {
     
     public function upload(UploadedFile $file) {
         
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $fileName = $this->generateUniquePictureName().'.'.$file->guessExtension();
         
         $file->move(
             $this->getTargetDir(),
@@ -28,5 +28,13 @@ class FileUploader {
     public function getTargetDir() {
         
         return $this->targetDir;
+    }
+    
+    /**
+     * @return string
+     */
+    private function generateUniquePictureName() {
+        
+        return md5(uniqid());
     }
 }
