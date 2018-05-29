@@ -2,10 +2,12 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Image;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProductType extends AbstractType
 {
@@ -23,6 +25,14 @@ class ProductType extends AbstractType
             ->add('picture', FileType::class, array('label' => 'Please select picture'))
             ->add('category')
         ;
+        
+        $builder
+            ->add('images', CollectionType::class, array(
+                'entry_type' => Image::class,
+                'entry_option' => array(
+                    'label' => false
+                )
+        ));
     }
     
     /**
