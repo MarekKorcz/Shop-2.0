@@ -63,7 +63,7 @@ class Product
     private $category;
     
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="product", cascade={"All"})
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="product", cascade={"persist"})
      */
     private $images;
     
@@ -79,6 +79,7 @@ class Product
     
     public function __construct() 
     {
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
         $this->itemOrders = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -235,8 +236,27 @@ class Product
         return $this->category;
     }
     
-    public function getImages(){
+    /**
+     * Add images into images collection
+     *   
+     * @param \AppBundle\Entity\Image $image
+     * @return \AppBundle\Entity\Product 
+     */
+    public function setImages(\AppBundle\Entity\Image $image)
+    {
+        $image->setProduct($this);
+        $this->images[] = $image;
         
+        return $this;
+    }
+
+    /**
+     * Get images
+     * 
+     * @return \AppBundle\Entity\Image
+     */
+    public function getImages()
+    {    
         return $this->images;
     }
     
